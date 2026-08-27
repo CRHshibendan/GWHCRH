@@ -7,9 +7,55 @@
 
 body {
     font-family: "SF Pro Display", "SF Pro SC", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
-    background: #fff;
-    color: #1d1d1f;
+    background: var(--bg);
+    color: var(--text);
     -webkit-font-smoothing: antialiased;
+    transition: background 0.35s ease, color 0.35s ease;
+}
+
+/* ===== 深浅配色变量(暗色模式一键切换) ===== */
+body {
+    --bg: #fff;
+    --text: #1d1d1f;
+    --text-2: #494949;
+    --text-3: #6e6e73;
+    --text-dim: #86868b;
+    --card: #fff;
+    --card-border: #e8e8ed;
+    --hero-bg: #d8ffea;
+    --accent: #06c;
+    --green: #1d7a4a;
+    --green-bg: #d8ffea;
+    --green-bg-hover: #c2f5d8;
+    --chip-bg: rgba(255, 255, 255, 0.75);
+    --panel-bg: rgba(255, 255, 255, 0.92);
+    --input-border: rgba(0, 0, 0, 0.08);
+    --btn-bg: #f5f5f7;
+    --img-bg: #fff;
+    --shadow: rgba(0, 0, 0, 0.12);
+    color-scheme: light;
+}
+
+body.dark {
+    --bg: #1b1b1f;
+    --text: #f5f5f7;
+    --text-2: #d6d6da;
+    --text-3: #a1a1a6;
+    --text-dim: #86868b;
+    --card: #2a2a30;
+    --card-border: #3a3a40;
+    --hero-bg: #123528;
+    --accent: #4aa8ff;
+    --green: #5ee39a;
+    --green-bg: #1d4a35;
+    --green-bg-hover: #256046;
+    --chip-bg: rgba(20, 40, 30, 0.8);
+    --panel-bg: rgba(38, 38, 44, 0.94);
+    --input-border: rgba(255, 255, 255, 0.12);
+    --btn-bg: #3a3a40;
+    --img-bg: #2a2a30;
+    --shadow: rgba(0, 0, 0, 0.5);
+    color-scheme: dark;
 }
 
 ul {
@@ -23,7 +69,7 @@ a {
 
 /* ===== 顶部导航 ===== */
 .nav {
-    background: #fff;
+    background: var(--bg);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -46,7 +92,7 @@ a {
     padding: 0 26px;
     height: 100%;
     font-size: 14px;
-    color: #1d1d1f;
+    color: var(--text);
     opacity: 0.85;
     transition: opacity 0.2s;
     white-space: nowrap;
@@ -78,11 +124,11 @@ a {
     top: 100%;
     right: 0;
     width: 320px;
-    background: rgba(255, 255, 255, 0.92);
+    background: var(--panel-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-radius: 0 0 18px 18px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 12px 32px var(--shadow);
     opacity: 0;
     visibility: hidden;
     transform: translateY(-8px);
@@ -107,13 +153,13 @@ a {
     padding: 14px 18px;
     font-size: 14px;
     font-family: inherit;
-    color: #1d1d1f;
+    color: var(--text);
     background: transparent;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid var(--input-border);
 }
 
 .search-panel input::placeholder {
-    color: #86868b;
+    color: var(--text-dim);
     font-size: 12px;
 }
 
@@ -130,13 +176,13 @@ a {
     padding: 8px 12px;
     border-radius: 10px;
     text-decoration: none;
-    color: #1d1d1f;
+    color: var(--text);
     font-size: 14px;
     transition: background 0.2s ease;
 }
 
 .search-link:hover {
-    background: #d8ffea;
+    background: var(--green-bg);
 }
 
 .search-link img {
@@ -144,14 +190,14 @@ a {
     height: 44px;
     object-fit: cover;
     border-radius: 8px;
-    background: #f5f5f7;
+    background: var(--img-bg);
 }
 
 .search-link em {
     display: block;
     font-style: italic;
     font-size: 11px;
-    color: #86868b;
+    color: var(--text-dim);
     font-weight: 400;
     margin-top: 1px;
 }
@@ -160,7 +206,7 @@ a {
     padding: 18px;
     text-align: center;
     font-size: 12px;
-    color: #86868b;
+    color: var(--text-dim);
 }
 
 /* 触屏/小屏:面板右对齐不超出屏幕 */
@@ -192,9 +238,9 @@ body.dropdown-open .main-content {
     /* 下拉动画:从上方缩放弹出 + 弹性缓动 */
     transform: translateX(-50%) translateY(-10px) scaleY(0.9);
     transform-origin: top center;
-    background: #fff;
+    background: var(--card);
     border-radius: 14px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.14);
+    box-shadow: 0 12px 40px var(--shadow);
     min-width: 168px;
     padding: 10px 6px;
     opacity: 0;
@@ -215,9 +261,9 @@ body.dropdown-open .main-content {
 
 .drop-cat {
     font-size: 11px;
-    color: #6e6e73;
+    color: var(--text-3);
     padding: 6px 14px 8px;
-    border-bottom: 1px solid #e8e8ed;
+    border-bottom: 1px solid var(--card-border);
     margin-bottom: 6px;
     white-space: nowrap;
 }
@@ -226,7 +272,7 @@ body.dropdown-open .main-content {
     display: block;
     padding: 8px 14px;
     font-size: 13px;
-    color: #1d1d1f;
+    color: var(--text);
     border-radius: 8px;
     transition: background 0.15s, color 0.15s;
     white-space: nowrap;
@@ -262,9 +308,35 @@ body.dropdown-open .main-content {
 }
 
 .drop-link:hover {
-    background: #d8ffea;
-    color: #1d7a4a;
+    background: var(--green-bg);
+    color: var(--green);
     text-decoration: none;
+}
+
+/* ===== 主题切换按钮 ===== */
+.nav-theme a {
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    height: 100%;
+    opacity: 0.85;
+    transition: opacity 0.2s, transform 0.3s ease;
+}
+
+.nav-theme a:hover {
+    opacity: 1;
+    transform: rotate(-20deg);
+}
+
+/* 浅色模式显示月亮(点击进入暗色);暗色模式显示太阳 */
+.nav-theme .icon-sun { display: none; }
+
+body.dark .nav-theme .icon-moon { display: none; }
+body.dark .nav-theme .icon-sun { display: block; }
+
+/* 太阳图标悬停时旋转 */
+body.dark .nav-theme a:hover {
+    transform: rotate(90deg);
 }
 
 /* ===== 科普小知识横向卡片轮播 ===== */
@@ -284,7 +356,7 @@ body.dropdown-open .main-content {
 .tips-sub {
     text-align: center;
     font-size: 14px;
-    color: #6e6e73;
+    color: var(--text-3);
     margin-bottom: 44px;
 }
 
@@ -312,11 +384,11 @@ body.dropdown-open .main-content {
 .tip-card {
     scroll-snap-align: start;
     flex: 0 0 300px;
-    background: #fff;
-    border: 1px solid #e8e8ed;
+    background: var(--card);
+    border: 1px solid var(--card-border);
     border-radius: 18px;
     padding: 34px 28px 30px;
-    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
     /* 兜底:emoji 动画无论如何不会超出卡片 */
     overflow: hidden;
     cursor: pointer;
@@ -330,7 +402,7 @@ body.dropdown-open .main-content {
     right: 22px;
     bottom: 18px;
     font-size: 12px;
-    color: #06c;
+    color: var(--accent);
     opacity: 0;
     transform: translateX(6px);
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -344,8 +416,8 @@ body.dropdown-open .main-content {
 
 .tip-card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.10);
-    border-color: #b8ecc9;
+    box-shadow: 0 18px 44px var(--shadow);
+    border-color: var(--green);
 }
 
 .tip-emoji {
@@ -358,13 +430,13 @@ body.dropdown-open .main-content {
     font-size: 19px;
     font-weight: 600;
     margin-bottom: 10px;
-    color: #1d1d1f;
+    color: var(--text);
 }
 
 .tip-card p {
     font-size: 13.5px;
     line-height: 1.75;
-    color: #494949;
+    color: var(--text-2);
 }
 
 /* 所有科普卡片:悬停时 emoji 右移变大,标题左移变大 400ms */
@@ -401,9 +473,9 @@ body.dropdown-open .main-content {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: none;
-    background: #f5f5f7;
-    color: #1d1d1f;
+    border: 1px solid var(--card-border);
+    background: var(--btn-bg);
+    color: var(--text);
     font-size: 24px;
     line-height: 1;
     cursor: pointer;
@@ -416,8 +488,8 @@ body.dropdown-open .main-content {
 }
 
 .tips-btn:hover {
-    background: #d8ffea;
-    color: #1d7a4a;
+    background: var(--green-bg);
+    color: var(--green);
 }
 
 .tips-prev {
@@ -430,10 +502,11 @@ body.dropdown-open .main-content {
 
 /* ===== Hero:薄荷绿区块 ===== */
 .hero {
-    background: #d8ffea;
+    background: var(--hero-bg);
     text-align: center;
     padding: 96px 24px 110px;
     overflow: hidden;
+    transition: background 0.35s ease;
 }
 
 .hero-title {
@@ -441,7 +514,7 @@ body.dropdown-open .main-content {
     font-weight: 600;
     letter-spacing: -0.01em;
     line-height: 1.1;
-    color: #1d1d1f;
+    color: var(--text);
 }
 
 .hero-figure {
@@ -462,7 +535,7 @@ body.dropdown-open .main-content {
     transition: transform 0.5s ease, opacity 0.5s ease;
     /* 淡入淡出轮换 */
     opacity: 0;
-    background: #fff;
+    background: var(--img-bg);
 }
 
 .hero-img.loaded {
@@ -509,19 +582,19 @@ body.dropdown-open .main-content {
 .bird-name {
     font-size: 20px;
     font-weight: 600;
-    color: #1d1d1f;
+    color: var(--text);
 }
 
 .bird-latin {
     font-size: 11px;
     font-style: italic;
-    color: #6e6e73;
+    color: var(--text-3);
     margin-top: 2px;
 }
 
 .bird-desc {
     font-size: 12px;
-    color: #3a3a3c;
+    color: var(--text-2);
     line-height: 1.5;
     margin-top: 10px;
 }
@@ -530,8 +603,8 @@ body.dropdown-open .main-content {
     margin-top: 10px;
     font-size: 12px;
     font-weight: 600;
-    color: #1d7a4a;
-    background: rgba(255, 255, 255, 0.75);
+    color: var(--green);
+    background: var(--chip-bg);
     border-radius: 999px;
     padding: 4px 12px;
     white-space: nowrap;
@@ -556,16 +629,25 @@ body.dropdown-open .main-content {
     background: #16603b;
 }
 
+/* 暗色下播放按钮提亮 */
+body.dark .bird-audio {
+    background: #2e9e64;
+}
+
+body.dark .bird-audio:hover {
+    background: #38b874;
+}
+
 .hero-hint {
     margin-top: 14px;
     font-size: 12px;
-    color: #6e6e73;
+    color: var(--text-3);
     opacity: 0.8;
 }
 
 /* ===== 下方内容区(当前留白) ===== */
 .content {
-    background: #fff;
+    background: var(--bg);
     min-height: 300px;
 }
 
