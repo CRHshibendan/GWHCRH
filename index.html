@@ -125,6 +125,90 @@
 
     <!-- Hero:薄荷绿背景 + 标题 + 随机轮换鸟图 -->
     <section class="hero main-content">
+        <!-- 视差装饰三层(纯 SVG 剪影,不使用图片资源):
+             远景芦苇 0.15x / 中景水鸟 0.35x / 近景蒲草 0.6x,滚动时近快远慢 -->
+        <div class="hero-deco hero-deco--far" aria-hidden="true">
+            <svg viewBox="0 0 1440 320" preserveAspectRatio="xMidYMax slice" focusable="false">
+                <g fill="var(--deco-far)" stroke="var(--deco-far)" stroke-linecap="round">
+                    <!-- 左侧芦苇丛 -->
+                    <path d="M50,320 C54,268 46,224 58,168" fill="none" stroke-width="3"/>
+                    <ellipse cx="59" cy="153" rx="4" ry="15" transform="rotate(10 59 153)" stroke="none"/>
+                    <path d="M84,320 C90,240 78,168 94,82" fill="none" stroke-width="3.2"/>
+                    <ellipse cx="96" cy="64" rx="5" ry="18" transform="rotate(12 96 64)" stroke="none"/>
+                    <path d="M124,320 C128,252 120,196 132,128" fill="none" stroke-width="3"/>
+                    <ellipse cx="134" cy="110" rx="4.5" ry="17" transform="rotate(10 134 110)" stroke="none"/>
+                    <path d="M162,320 C164,262 160,214 168,158" fill="none" stroke-width="2.8"/>
+                    <ellipse cx="169" cy="142" rx="4" ry="15" transform="rotate(8 169 142)" stroke="none"/>
+                    <path d="M198,320 C198,272 196,236 202,192" fill="none" stroke-width="2.6"/>
+                    <ellipse cx="203" cy="177" rx="3.6" ry="13" transform="rotate(7 203 177)" stroke="none"/>
+                    <!-- 中部矮芦苇(衬在鸟图后方) -->
+                    <path d="M664,320 C668,258 660,214 672,152" fill="none" stroke-width="3"/>
+                    <ellipse cx="674" cy="137" rx="4.2" ry="15" transform="rotate(9 674 137)" stroke="none"/>
+                    <path d="M700,320 C702,264 698,224 706,178" fill="none" stroke-width="2.8"/>
+                    <ellipse cx="707" cy="163" rx="4" ry="14" transform="rotate(8 707 163)" stroke="none"/>
+                    <path d="M738,320 C738,272 736,240 740,204" fill="none" stroke-width="2.6"/>
+                    <ellipse cx="741" cy="191" rx="3.6" ry="12" transform="rotate(6 741 191)" stroke="none"/>
+                    <!-- 右侧芦苇丛 -->
+                    <path d="M1204,320 C1210,240 1198,170 1214,86" fill="none" stroke-width="3.2"/>
+                    <ellipse cx="1216" cy="68" rx="5" ry="18" transform="rotate(12 1216 68)" stroke="none"/>
+                    <path d="M1248,320 C1252,252 1244,194 1256,126" fill="none" stroke-width="3"/>
+                    <ellipse cx="1258" cy="108" rx="4.4" ry="16" transform="rotate(10 1258 108)" stroke="none"/>
+                    <path d="M1290,320 C1292,262 1288,214 1296,158" fill="none" stroke-width="2.8"/>
+                    <ellipse cx="1297" cy="142" rx="4" ry="15" transform="rotate(8 1297 142)" stroke="none"/>
+                    <path d="M1326,320 C1326,274 1324,240 1330,200" fill="none" stroke-width="2.6"/>
+                    <ellipse cx="1331" cy="186" rx="3.6" ry="13" transform="rotate(7 1331 186)" stroke="none"/>
+                    <path d="M1362,320 C1364,270 1360,234 1368,184" fill="none" stroke-width="2.6"/>
+                    <ellipse cx="1369" cy="169" rx="3.6" ry="13" transform="rotate(8 1369 169)" stroke="none"/>
+                </g>
+            </svg>
+        </div>
+        <div class="hero-deco hero-deco--mid" aria-hidden="true">
+            <svg viewBox="0 0 1440 640" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <g fill="var(--deco-mid)">
+                    <!-- 飞行水鸟剪影:身体 + 头嘴 + 双翼 + 尾 -->
+                    <g transform="translate(150,130) scale(1.15)">
+                        <path d="M52,42 C58,35 70,32 82,33 C94,34 104,38 111,43 C101,50 88,53 76,52 C64,51 56,47 52,42 Z"/>
+                        <path d="M103,38 C106,31 111,26 118,25 C124,24 129,27 132,31 L141,33.5 L132,36 C129,40 124,43 118,43 C111,43 106,41 103,38 Z"/>
+                        <path d="M74,38 C62,27 46,13 27,3 C33,17 42,30 55,41 C62,44 69,43 74,38 Z"/>
+                        <path d="M98,38 C106,25 120,11 137,1 C132,16 124,30 112,41 C107,44 101,43 98,38 Z"/>
+                        <path d="M53,42 C43,43 33,45 24,49 C33,51 43,51 54,50 Z"/>
+                    </g>
+                    <!-- 中间一只朝左飞 -->
+                    <g transform="translate(760,92) scale(-0.85,0.85)">
+                        <path d="M52,42 C58,35 70,32 82,33 C94,34 104,38 111,43 C101,50 88,53 76,52 C64,51 56,47 52,42 Z"/>
+                        <path d="M103,38 C106,31 111,26 118,25 C124,24 129,27 132,31 L141,33.5 L132,36 C129,40 124,43 118,43 C111,43 106,41 103,38 Z"/>
+                        <path d="M74,38 C62,27 46,13 27,3 C33,17 42,30 55,41 C62,44 69,43 74,38 Z"/>
+                        <path d="M98,38 C106,25 120,11 137,1 C132,16 124,30 112,41 C107,44 101,43 98,38 Z"/>
+                        <path d="M53,42 C43,43 33,45 24,49 C33,51 43,51 54,50 Z"/>
+                    </g>
+                    <g transform="translate(1100,180) scale(1)">
+                        <path d="M52,42 C58,35 70,32 82,33 C94,34 104,38 111,43 C101,50 88,53 76,52 C64,51 56,47 52,42 Z"/>
+                        <path d="M103,38 C106,31 111,26 118,25 C124,24 129,27 132,31 L141,33.5 L132,36 C129,40 124,43 118,43 C111,43 106,41 103,38 Z"/>
+                        <path d="M74,38 C62,27 46,13 27,3 C33,17 42,30 55,41 C62,44 69,43 74,38 Z"/>
+                        <path d="M98,38 C106,25 120,11 137,1 C132,16 124,30 112,41 C107,44 101,43 98,38 Z"/>
+                        <path d="M53,42 C43,43 33,45 24,49 C33,51 43,51 54,50 Z"/>
+                    </g>
+                </g>
+            </svg>
+        </div>
+        <div class="hero-deco hero-deco--near" aria-hidden="true">
+            <svg viewBox="0 0 1440 400" preserveAspectRatio="xMidYMax slice" focusable="false">
+                <g fill="var(--deco-near)" stroke="var(--deco-near)" stroke-linecap="round">
+                    <!-- 左下蒲草丛:粗茎 + 棒状穗 + 草叶 -->
+                    <path d="M64,400 C74,300 60,216 80,104" fill="none" stroke-width="8"/>
+                    <rect x="68" y="36" width="23" height="66" rx="11" transform="rotate(7 79 69)" stroke="none"/>
+                    <path d="M112,400 C118,318 108,258 122,178" fill="none" stroke-width="7"/>
+                    <rect x="113" y="118" width="19" height="57" rx="9" transform="rotate(6 122 146)" stroke="none"/>
+                    <path d="M152,400 C164,322 158,262 176,198 C170,268 168,334 162,400 Z" stroke="none"/>
+                    <!-- 右下蒲草丛 -->
+                    <path d="M1382,400 C1372,296 1386,222 1364,108" fill="none" stroke-width="8"/>
+                    <rect x="1352" y="40" width="23" height="68" rx="11" transform="rotate(-7 1364 74)" stroke="none"/>
+                    <path d="M1324,400 C1318,314 1328,252 1314,172" fill="none" stroke-width="7"/>
+                    <rect x="1305" y="112" width="19" height="58" rx="9" transform="rotate(-6 1314 141)" stroke="none"/>
+                    <path d="M1268,400 C1258,330 1266,272 1250,216 C1260,282 1258,344 1258,400 Z" stroke="none"/>
+                </g>
+            </svg>
+        </div>
         <h1 class="hero-title">百啭集，翎鸣馆。</h1>
         <div class="hero-figure" id="heroFigure">
             <div class="fig-wrap" id="figWrap">
@@ -190,6 +274,15 @@
                 </article>
             </div>
             <button class="tips-btn tips-next" id="tipsNext" aria-label="下一张">›</button>
+        </div>
+    </section>
+
+    <!-- 翎鸣百态:3D 鸟类卡片墙(script.js 动态生成全部鸟种,悬停翻面) -->
+    <section class="wall main-content" id="wall-section">
+        <h2 class="tips-title wall-title">翎鸣百态，一羽一世界。</h2>
+        <p class="tips-sub wall-sub">25 种东滩飞羽 · 悬停卡片翻面识鸟</p>
+        <div class="wall-stage">
+            <div class="wall-grid" id="wallGrid"></div>
         </div>
     </section>
 

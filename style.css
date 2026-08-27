@@ -716,3 +716,170 @@ body.dark .bird-audio:hover {
         padding: 64px 20px 72px;
     }
 }
+
+/* ===== Hero 视差装饰层(script.js 驱动滚动视差) ===== */
+.hero {
+    position: relative;
+    /* 剪影配色:浅色墨绿 / 暗色亮薄荷绿,跟随主题切换 */
+    --deco-far: rgba(29, 122, 74, 0.14);
+    --deco-mid: rgba(29, 122, 74, 0.20);
+    --deco-near: rgba(29, 122, 74, 0.26);
+}
+
+body.dark .hero {
+    --deco-far: rgba(94, 227, 154, 0.10);
+    --deco-mid: rgba(94, 227, 154, 0.16);
+    --deco-near: rgba(94, 227, 154, 0.22);
+}
+
+.hero-deco {
+    position: absolute;
+    inset: 0;
+    z-index: 1;               /* 背景之上、文字之下 */
+    pointer-events: none;      /* 不挡任何交互 */
+    will-change: transform;
+}
+
+.hero-deco svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* 文字与鸟图始终在装饰层之上 */
+.hero-title,
+.hero-figure {
+    position: relative;
+    z-index: 2;
+}
+
+/* ===== 翎鸣百态:3D 鸟类卡片墙 ===== */
+.wall {
+    padding: 90px 0 110px;
+    overflow: hidden; /* 卡片翻面 3D 溢出时不产生横向滚动条 */
+}
+
+.wall-stage {
+    /* 整面墙的透视:鼠标移动时墙体在 script.js 里做 ±4° 倾斜 */
+    perspective: 1200px;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.wall-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(176px, 1fr));
+    gap: 22px;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+/* 单卡:preserve-3d + 悬停绕 Y 轴翻面 */
+.wall-card {
+    position: relative;
+    display: block;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0.1, 0.2, 1);
+}
+
+.wall-card:hover,
+.wall-card:focus-visible {
+    transform: rotateY(180deg);
+}
+
+/* 正反面:背面朝前隐藏(backface-visibility),圆角边框统一 */
+.wall-face {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border: 1px solid var(--card-border);
+    background: var(--card);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+/* 正面:鸟图 + 鸟名(撑起卡片高度) */
+.wall-front {
+    display: flex;
+    flex-direction: column;
+}
+
+.wall-front img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;   /* 完整显示整只鸟,不裁切 */
+    background: var(--img-bg);
+    display: block;
+}
+
+.wall-name {
+    padding: 10px 12px 12px;
+    font-size: 13.5px;
+    font-weight: 600;
+    text-align: center;
+    color: var(--text);
+}
+
+/* 背面:拉丁学名(斜体) + 分类徽章 + 简介 + 查看详情 */
+.wall-back {
+    position: absolute;
+    inset: 0;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    padding: 14px;
+}
+
+.wall-latin {
+    font-style: italic;
+    font-size: 11px;
+    color: var(--text-3);
+}
+
+.wall-badge {
+    align-self: flex-start;
+    margin-top: 7px;
+    font-size: 10.5px;
+    color: var(--green);
+    background: var(--green-bg);
+    border-radius: 999px;
+    padding: 2px 9px;
+}
+
+.wall-desc {
+    margin-top: 9px;
+    font-size: 11.5px;
+    line-height: 1.65;
+    color: var(--text-2);
+    flex: 1;
+}
+
+.wall-more {
+    margin-top: auto;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+/* 手机端:关闭墙体倾斜与翻面,退化为简单网格,点击直接跳详情 */
+@media (max-width: 767px) {
+    .wall-stage {
+        perspective: none;
+    }
+
+    .wall-grid {
+        transform: none !important; /* 覆盖 JS 写入的行内倾斜 */
+        transform-style: flat;
+    }
+
+    .wall-card:hover,
+    .wall-card:focus-visible {
+        transform: none;
+    }
+
+    .wall-back {
+        display: none;
+    }
+}

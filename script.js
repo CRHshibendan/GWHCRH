@@ -494,5 +494,120 @@ figWrap.addEventListener('click', function (e) {
     });
 })();
 
+// ===== 翎鸣百态:3D 鸟类卡片墙 =====
+// 动态生成全部鸟种卡片:正面鸟图+鸟名,悬停翻面见学名/分类/简介;点击跳详情页
+(function () {
+    var grid = document.getElementById('wallGrid');
+    if (!grid) return;
+
+    // 鸟种分类映射(与顶部导航的分类口径一致)
+    var CATEGORY = {
+        '反嘴鹬': '鸻鹬类', '凤头麦鸡': '鸻鹬类',
+        '斑头秋沙鸭': '雁鸭类', '罗纹鸭': '雁鸭类', '琵嘴鸭': '雁鸭类',
+        '小天鹅': '雁鸭类', '中华秋沙鸭': '雁鸭类', '花脸鸭': '雁鸭类', '斑嘴鸭': '雁鸭类',
+        '白琵鹭': '琵鹭', '黑脸琵鹭': '琵鹭',
+        '白腹鹞': '猛禽', '黑翅鸢': '猛禽', '红隼': '猛禽',
+        '海鸥': '鸥类', '斑鱼狗': '攀禽',
+        '白头鹤': '鹤类', '灰鹤': '鹤类',
+        '东方白鹳': '鹳类', '卷羽鹈鹕': '鹳类',
+        '草鹭': '其他', '震旦鸦雀': '其他', '黄鹡鸰': '其他', '栗耳鹀': '其他', '珠颈斑鸠': '其他'
+    };
+
+    BIRDS.forEach(function (bird) {
+        var card = document.createElement('a');
+        card.className = 'wall-card';
+        card.href = 'bird.html?name=' + encodeURIComponent(bird.name);
+        // 简介取前 60 字
+        var brief = bird.desc.length > 60 ? bird.desc.slice(0, 60) + '…' : bird.desc;
+        card.innerHTML =
+            '<div class="wall-face wall-front">' +
+                '<img src="' + bird.images[0] + '" alt="' + bird.name + '" loading="lazy">' +
+                '<span class="wall-name">' + bird.name + '</span>' +
+            '</div>' +
+            '<div class="wall-face wall-back">' +
+                '<em class="wall-latin">' + bird.latin + '</em>' +
+                '<span class="wall-badge">' + (CATEGORY[bird.name] || '其他') + '</span>' +
+                '<p class="wall-desc">' + brief + '</p>' +
+                '<span class="wall-more">查看详情 ›</span>' +
+            '</div>';
+        grid.appendChild(card);
+    });
+
+    // 整面墙透视倾斜:鼠标在墙区域内移动,±4° 内用 rAF 平滑插值(不直接跟随抖动)
+    var wall = document.getElementById('wall-section');
+    // 手机端/触屏设备关闭墙体倾斜(点击直接跳详情)
+    if (!wall) return;
+    if (window.matchMedia('(hover: none)').matches) return;
+    if (window.matchMedia('(max-width: 767px)').matches) return;
+
+    var MAX_TILT = 4;          // 最大倾角(度)
+    var EASE = 0.1;            // 插值系数:越小越绵
+    var targetRX = 0, targetRY = 0; // 目标角度
+    var curRX = 0, curRY = 0;       // 当前角度
+    var rafId = null;
+
+    function frame() {
+        curRX += (targetRX - curRX) * EASE;
+        curRY += (targetRY - curRY) * EASE;
+        grid.style.transform = 'rotateX(' + curRX.toFixed(2) + 'deg) rotateY(' + curRY.toFixed(2) + 'deg)';
+        // 足够接近目标且无新输入时停帧,省性能
+        if (Math.abs(targetRX - curRX) > 0.02 || Math.abs(targetRY - curRY) > 0.02) {
+            rafId = requestAnimationFrame(frame);
+        } else {
+            rafId = null;
+        }
+    }
+
+    function wake() {
+        if (!rafId) rafId = requestAnimationFrame(frame);
+    }
+
+    wall.addEventListener('mousemove', function (e) {
+        var r = wall.getBoundingClientRect();
+        var px = ((e.clientX - r.left) / r.width) * 2 - 1;   // -1 ~ 1
+        var py = ((e.clientY - r.top) / r.height) * 2 - 1;
+        targetRY = px * MAX_TILT;    // 左右移动 → 绕 Y 轴
+        targetRX = -py * MAX_TILT;   // 上下移动 → 绕 X 轴
+        wake();
+    });
+
+    wall.addEventListener('mouseleave', function () {
+        targetRX = 0;
+        targetRY = 0;
+        wake();
+    });
+})();
+
+// ===== Hero 视差滚动 =====
+// 三层装饰以不同系数平移:远景芦苇 0.15x / 中景水鸟 0.35x / 近景蒲草 0.6x,
+// 滚动时近快远慢;scroll 监听 + rAF 节流,每帧最多更新一次
+(function () {
+    var layers = [
+        { el: document.querySelector('.hero-deco--far'), speed: 0.15 },
+        { el: document.querySelector('.hero-deco--mid'), speed: 0.35 },
+        { el: document.querySelector('.hero-deco--near'), speed: 0.6 }
+    ].filter(function (l) { return !!l.el; });
+    if (!layers.length) return;
+
+    var ticking = false;
+
+    function update() {
+        ticking = false;
+        var y = window.scrollY;
+        layers.forEach(function (l) {
+            l.el.style.transform = 'translateY(' + (-y * l.speed).toFixed(1) + 'px)';
+        });
+    }
+
+    window.addEventListener('scroll', function () {
+        if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(update);
+        }
+    }, { passive: true });
+
+    update(); // 初始位置(刷新后停留在页面中部时也正确)
+})();
+
 // 初始展示反嘴鹬(与原设计一致),之后每 5 秒随机轮换(悬停时暂停)
 showBird(0);
