@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>翎鸣馆 · 鸟种详情</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: "SF Pro Display", "SF Pro SC", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #fff;
+    color: #1d1d1f;
+    -webkit-font-smoothing: antialiased;
+}
+
+ul { list-style: none; }
+a { text-decoration: none; color: inherit; }
+
+/* 顶部导航 */
+.bd-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 52px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bd-nav a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 20px;
+    height: 100%;
+    font-size: 14px;
+    color: #1d1d1f;
+    opacity: 0.85;
+    white-space: nowrap;
+}
+
+.bd-nav a:hover { opacity: 1; }
+
+/* Hero */
+.bd-hero {
+    padding: 90px 24px 70px;
+    text-align: center;
+}
+
+.bd-hero .cat-chip {
+    display: inline-block;
+    background: #d8ffea;
+    color: #1d7a4a;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 5px 16px;
+    margin-bottom: 20px;
+}
+
+.bd-hero h1 {
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.bd-hero .latin {
+    margin-top: 8px;
+    font-style: italic;
+    font-size: 16px;
+    color: #86868b;
+}
+
+.bd-figure {
+    position: relative;
+    max-width: 640px;
+    margin: 40px auto 0;
+    border-radius: 28px;
+    overflow: hidden;
+    background: #f5f5f7;
+    padding: 20px;
+}
+
+.bd-figure img {
+    width: 100%;
+    object-fit: contain;
+    display: block;
+    border-radius: 18px;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.bd-figure:hover img {
+    transform: scale(1.06);
+    opacity: 0.25;
+}
+
+.bd-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 22px;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.45s ease;
+}
+
+.bd-figure:hover .bd-overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.bd-overlay .bird-call {
+    font-size: 15px;
+    color: #424245;
+    max-width: 380px;
+    line-height: 1.6;
+}
+
+.bd-overlay .bird-audio {
+    margin-top: 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    background: #1d7a4a;
+    border: none;
+    border-radius: 999px;
+    padding: 7px 20px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s;
+}
+
+.bd-overlay .bird-audio:hover { background: #16603b; }
+
+/* 描述区 */
+.bd-desc {
+    max-width: 720px;
+    margin: 44px auto 0;
+    padding: 0 24px;
+    font-size: 18px;
+    line-height: 1.7;
+    color: #424245;
+    text-align: center;
+}
+
+/* 您可能感兴趣 */
+.bd-related {
+    background: #f5f5f7;
+    padding: 90px 24px 110px;
+    margin-top: 80px;
+}
+
+.bd-related h2 {
+    text-align: center;
+    font-size: clamp(26px, 4vw, 40px);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.bd-related .sub {
+    text-align: center;
+    margin-top: 8px;
+    font-size: 15px;
+    color: #86868b;
+}
+
+.bd-related-grid {
+    max-width: 1080px;
+    margin: 44px auto 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 22px;
+}
+
+.bd-card {
+    background: #fff;
+    border-radius: 22px;
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+}
+
+.bd-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.08);
+}
+
+.bd-card img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    background: #fff;
+    display: block;
+}
+
+.bd-card .cap {
+    padding: 16px 20px 20px;
+}
+
+.bd-card .cap strong { font-size: 17px; display: block; }
+
+.bd-card .cap em { font-style: italic; font-size: 12px; color: #86868b; display: block; margin-top: 2px; }
+
+/* 错误兜底 */
+.bd-notfound {
+    text-align: center;
+    padding: 120px 24px;
+}
+
+.bd-notfound h1 { font-size: 32px; margin-bottom: 12px; }
+
+.bd-notfound p { color: #86868b; }
+</style>
+</head>
+<body>
+<nav class="bd-nav"><a href="index.html">‹ 翎鸣馆</a></nav>
+
+<div id="app"></div>
+
+<script src="bird-data.js"></script>
+<script>
+(function () {
+    var app = document.getElementById('app');
+    var params = new URLSearchParams(location.search);
+    var name = params.get('name') || '';
+    var i = findBird(name);
+    var bird = i >= 0 ? BIRDS[i] : null;
+
+    if (!bird) {
+        app.innerHTML = '<div class="bd-notfound"><h1>没有找到这种鸟</h1>' +
+            '<p>回到首页搜索试试,如"红隼"或拼音"hongsun"。</p>' +
+            '<p style="margin-top:24px"><a href="index.html" style="color:#06c">回到翎鸣馆 ›</a></p></div>';
+        return;
+    }
+
+    // 分类:从导航 data-bird 归属推断
+    var CATS = ['鸻鹬类', '雁鸭类', '琵鹭', '猛禽', '鸥类', '攀禽', '鹤类', '鹳类', '其他'];
+    var cat = params.get('cat') || '其他';
+
+    // 同分类推荐:优先同分类,不足补随机
+    var pool = BIRDS.filter(function (b) { return b.name !== bird.name; });
+    var related = pool.slice().sort(function () { return Math.random() - 0.5; }).slice(0, 4);
+
+    app.innerHTML =
+        '<section class="bd-hero">' +
+            '<span class="cat-chip">' + cat + '</span>' +
+            '<h1>' + bird.name + '</h1>' +
+            '<p class="latin">' + bird.latin + '</p>' +
+            '<figure class="bd-figure">' +
+                '<img id="bdImg" src="' + bird.images[0] + '" alt="' + bird.name + '">' +
+                '<div class="bd-overlay">' +
+                    '<p class="bird-call">' + bird.call + '</p>' +
+                    '<button class="bird-audio" id="bdAudio">▶ 播放叫声</button>' +
+                '</div>' +
+            '</figure>' +
+            '<p class="bd-desc">' + bird.desc + '</p>' +
+        '</section>' +
+        '<section class="bd-related">' +
+            '<h2>您可能感兴趣</h2>' +
+            '<p class="sub">随机推荐其他鸟种</p>' +
+            '<div class="bd-related-grid">' +
+                related.map(function (b) {
+                    return '<div class="bd-card" data-name="' + b.name + '">' +
+                        '<img src="' + b.images[0] + '" alt="' + b.name + '" loading="lazy">' +
+                        '<div class="cap"><strong>' + b.name + '</strong><em>' + b.latin + '</em></div></div>';
+                }).join('') +
+            '</div>' +
+        '</section>';
+
+    // 叫声播放
+    var btn = document.getElementById('bdAudio');
+    var audio = null;
+    btn.addEventListener('click', function () {
+        if (audio && !audio.paused) {
+            audio.pause();
+            btn.textContent = '▶ 播放叫声';
+            return;
+        }
+        audio = audio || new Audio(bird.audio);
+        audio.currentTime = 0;
+        audio.play();
+        btn.textContent = '■ 停止';
+        audio.addEventListener('ended', function () { btn.textContent = '▶ 播放叫声'; });
+    });
+
+    // 推荐卡点击:跳到该鸟详情页(同分类推荐猫传下去)
+    document.querySelectorAll('.bd-card').forEach(function (card) {
+        card.addEventListener('click', function () {
+            location.href = 'bird.html?name=' + encodeURIComponent(card.getAttribute('data-name'));
+        });
+    });
+
+    // 标题
+    document.title = bird.name + ' · 翎鸣馆';
+})();
+</script>
+</body>
+</html>
