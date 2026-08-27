@@ -25,20 +25,19 @@ a { text-decoration: none; color: inherit; }
     justify-content: center;
 }
 
-/* 显眼的返回按钮:深底上亮薄荷绿胶囊 + 箭头滑出动效 */
+/* 返回按钮:底色跟随页面、稍亮一点,克制不抢戏 */
 .tp-nav .back-home {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     font-size: 14px;
     font-weight: 600;
-    color: #0a3d24;
-    background: #d8ffea;
-    border: 1px solid rgba(216, 255, 234, 0.6);
+    color: #f5f5f7;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.22);
     border-radius: 999px;
     padding: 8px 22px 8px 16px;
-    transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
-    box-shadow: 0 2px 14px rgba(216, 255, 234, 0.25);
+    transition: background 0.25s ease, border-color 0.25s ease;
 }
 
 .tp-nav .back-home .arrow {
@@ -49,9 +48,8 @@ a { text-decoration: none; color: inherit; }
 }
 
 .tp-nav .back-home:hover {
-    background: #edfff4;
-    box-shadow: 0 4px 20px rgba(216, 255, 234, 0.4);
-    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.20);
+    border-color: rgba(255, 255, 255, 0.32);
 }
 
 .tp-nav .back-home:hover .arrow {
