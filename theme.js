@@ -54,8 +54,8 @@ function lmgAnimateToggle(btn, toDark) {
                 ]
             },
             {
-                // 4000ms 慢速蔓延
-                duration: 4000,
+                // 2000ms 蔓延(丝滑与速度的平衡)
+                duration: 2000,
                 easing: 'cubic-bezier(0.16, 0.8, 0.3, 1)',
                 pseudoElement: '::view-transition-new(root)'
             }
