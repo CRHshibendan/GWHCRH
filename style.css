@@ -887,9 +887,9 @@ body.dark .hero {
     position: fixed;
     left: -100px;
     top: -100px;
-    width: 1px;
-    height: 1px;
-    margin: -0.5px 0 0 -0.5px;  /* 以鼠标点为中心 */
+    width: 10px;
+    height: 10px;
+    margin: -5px 0 0 -5px;      /* 以鼠标点为中心 */
     pointer-events: none;      /* 不挡任何点击 */
     z-index: 9999;
     color: var(--feather);
