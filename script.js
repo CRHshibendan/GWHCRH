@@ -494,30 +494,5 @@ figWrap.addEventListener('click', function (e) {
     });
 })();
 
-// ===== 暗色模式:一键切换 + localStorage 记住偏好 =====
-(function () {
-    var KEY = 'lmg-theme';
-
-    function apply(theme) {
-        document.body.classList.toggle('dark', theme === 'dark');
-    }
-
-    // 初始:记住的偏好 > 跟随系统
-    var saved = null;
-    try { saved = localStorage.getItem(KEY); } catch (e) {}
-    apply(saved === 'dark' ? 'dark' : (saved === 'light' ? 'light' :
-        (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')));
-
-    var toggle = document.getElementById('themeToggle');
-    if (toggle) {
-        toggle.addEventListener('click', function (e) {
-            e.preventDefault();
-            var toDark = !document.body.classList.contains('dark');
-            apply(toDark ? 'dark' : 'light');
-            try { localStorage.setItem(KEY, toDark ? 'dark' : 'light'); } catch (e) {}
-        });
-    }
-})();
-
 // 初始展示反嘴鹬(与原设计一致),之后每 5 秒随机轮换(悬停时暂停)
 showBird(0);
