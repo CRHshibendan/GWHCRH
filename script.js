@@ -9,7 +9,7 @@ var BIRDS = [
         name: '反嘴鹬', latin: 'Recurvirostra avosetta', keywords: 'fanzuiyu fzy',
         desc: '反嘴鹬科,又名反嘴鸻,体长38-45厘米。眼先、前额、头顶至颈上部黑色,形成黑色帽状斑,其余颈部、背、腰和整个下体白色。嘴黑色且显著上翘,脚蓝灰色。',
         call: '叫声:连续清脆的"克利—克利—克利"',
-        images: ['assets/images/fanzuiyu-main.jpg', 'assets/images/shorebirds/fanzuiyu-1.png', 'assets/images/shorebirds/fanzuiyu-2.png'],
+        images: ['assets/images/fanzuiyu-main-new.png', 'assets/images/shorebirds/fanzuiyu-1.png', 'assets/images/shorebirds/fanzuiyu-2.png'],
         audio: 'assets/audio/fanzuiyu-main.m4a'
     },
     {
@@ -216,11 +216,11 @@ figWrap.addEventListener('mouseleave', function () {
     }
 });
 
-// 取鸟的展示图:随机选一张
-function birdImageSrc(bird) {
+// 取鸟的展示图:优先第 1 张(精选主图),其后轮换再随机
+function birdImageSrc(bird, isInitial) {
     var files = bird.images || [];
-    var pick = files[Math.floor(Math.random() * files.length)];
-    return pick;
+    if (isInitial && files.length) return files[0];
+    return files[Math.floor(Math.random() * files.length)];
 }
 
 // 按名称查鸟
@@ -263,8 +263,9 @@ function showBird(index) {
         hoverTimer = setTimeout(tick, 5000);
     }
 
-    // 预加载新图,加载完成后淡入
-    var src = birdImageSrc(bird);
+    // 预加载新图,加载完成后淡入(初始展示用第 1 张精选主图)
+    var src = birdImageSrc(bird, window.__firstShow === true);
+    window.__firstShow = false;
     var preloader = new Image();
     preloader.onload = function () {
         heroImg.classList.remove('loaded');
@@ -631,5 +632,6 @@ figWrap.addEventListener('click', function (e) {
     }, { passive: true });
 })();
 
-// 初始展示反嘴鹬(与原设计一致),之后每 5 秒随机轮换(悬停时暂停)
+// 初始展示反嘴鹬(与原设计一致,用第 1 张精选主图),之后每 5 秒随机轮换(悬停时暂停)
+window.__firstShow = true;
 showBird(0);

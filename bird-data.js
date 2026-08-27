@@ -5,7 +5,7 @@ var BIRDS = [
         name: '反嘴鹬', latin: 'Recurvirostra avosetta', keywords: 'fanzuiyu fzy',
         desc: '反嘴鹬科,又名反嘴鸻,体长38-45厘米。眼先、前额、头顶至颈上部黑色,形成黑色帽状斑,其余颈部、背、腰和整个下体白色。嘴黑色且显著上翘,脚蓝灰色。',
         call: '叫声:连续清脆的"克利—克利—克利"',
-        images: ['assets/images/fanzuiyu-main.jpg', 'assets/images/shorebirds/fanzuiyu-1.png', 'assets/images/shorebirds/fanzuiyu-2.png'],
+        images: ['assets/images/fanzuiyu-main-new.png', 'assets/images/shorebirds/fanzuiyu-1.png', 'assets/images/shorebirds/fanzuiyu-2.png'],
         audio: 'assets/audio/fanzuiyu-main.m4a'
     },
     {
