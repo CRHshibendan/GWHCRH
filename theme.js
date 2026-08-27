@@ -54,8 +54,8 @@ function lmgAnimateToggle(btn, toDark) {
                 ]
             },
             {
-                // 1300ms 慢速蔓延:起步迟缓、持续涌开、结尾轻弹
-                duration: 1300,
+                // 2400ms 慢速蔓延
+                duration: 2400,
                 easing: 'cubic-bezier(0.16, 0.8, 0.3, 1)',
                 pseudoElement: '::view-transition-new(root)'
             }
