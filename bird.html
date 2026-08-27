@@ -8,6 +8,16 @@
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* 主题切换圆形扩散动画(配合 theme.js 的 View Transitions) */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+::view-transition-old(root) { z-index: 1; }
+::view-transition-new(root) { z-index: 9999; }
+
 /* ===== 深浅配色变量(与主页一致,共享 localStorage 偏好) ===== */
 body {
     --bg: #fff;

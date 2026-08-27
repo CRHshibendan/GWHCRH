@@ -5,6 +5,23 @@
     box-sizing: border-box;
 }
 
+/* ===== 主题切换圆形扩散动画(View Transitions) =====
+   theme.js 驱动 clip-path 圆形从按钮位置扩散 + 边缘过冲回弹。
+   这里关掉默认的交叉淡入,让圆形遮罩成为唯一过渡。 */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+    z-index: 1;
+}
+
+::view-transition-new(root) {
+    z-index: 9999;
+}
+
 body {
     font-family: "SF Pro Display", "SF Pro SC", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
     background: var(--bg);

@@ -1,6 +1,16 @@
 /* ===== 科普详情页(苹果风格,支持深浅主题) ===== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* 主题切换圆形扩散动画(配合 theme.js 的 View Transitions) */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+::view-transition-old(root) { z-index: 1; }
+::view-transition-new(root) { z-index: 9999; }
+
 /* ===== 深浅配色变量(与主页共享 localStorage 偏好) ===== */
 body {
     --text: #1d1d1f;
