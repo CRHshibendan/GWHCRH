@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>翎鸣馆 - 鸟类图鉴</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 顶部导航:logo(回主页) + 各分类下拉栏 + 搜索 -->
+    <nav class="nav">
+        <ul class="nav-list">
+            <li class="nav-logo">
+                <a href="#" id="homeLink" aria-label="回到主页">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                        <path d="M12 3C7 3 3.5 6.5 3.5 11c0 2.2.9 4.1 2.4 5.5L4 21l4.6-1.8c1.1.4 2.2.6 3.4.6 5 0 8.5-3.5 8.5-8S17 3 12 3zm-3.2 8.6a1.4 1.4 0 1 1 0-2.8 1.4 1.4 0 0 1 0 2.8zm6.4 0a1.4 1.4 0 1 1 0-2.8 1.4 1.4 0 0 1 0 2.8z"/>
+                    </svg>
+                </a>
+            </li>
+            <li class="nav-item has-drop">
+                <a href="#">鸻鹬类</a>
+                <div class="drop">
+                    <div class="drop-cat">鸻形目小型涉禽 · 54 种</div>
+                    <a href="#" class="drop-link" data-bird="反嘴鹬">反嘴鹬</a>
+                    <a href="#" class="drop-link" data-bird="凤头麦鸡">凤头麦鸡</a>
+                </div>
+            </li>
+            <li class="nav-item has-drop">
+                <a href="#">雁鸭类</a>
+                <div class="drop">
+                    <div class="drop-cat">雁形目鸭科游禽 · 35 种</div>
+                    <a href="#" class="drop-link" data-bird="斑头秋沙鸭">斑头秋沙鸭</a>
+                    <a href="#" class="drop-link" data-bird="罗纹鸭">罗纹鸭</a>
+                    <a href="#" class="drop-link" data-bird="琵嘴鸭">琵嘴鸭</a>
+                    <a href="#" class="drop-link" data-bird="小天鹅">小天鹅</a>
+                    <a href="#" class="drop-link" data-bird="中华秋沙鸭">中华秋沙鸭</a>
+                    <a href="#" class="drop-link" data-bird="花脸鸭">花脸鸭</a>
+                    <a href="#" class="drop-link" data-bird="斑嘴鸭">斑嘴鸭</a>
+                </div>
+            </li>
+            <li class="nav-item has-drop">
+                <a href="#">琵鹭</a>
+                <div class="drop">
+                    <div class="drop-cat">鹮科琵鹭属涉禽</div>
+                    <a href="#" class="drop-link" data-bird="白琵鹭">白琵鹭</a>
+                    <a href="#" class="drop-link" data-bird="黑脸琵鹭">黑脸琵鹭</a>
+                </div>
+            </li>
+            <li class="nav-item has-drop">
+                <a href="#">猛禽</a>
+                <div class="drop">
+                    <div class="drop-cat">隼形目 / 鸮形目掠食性鸟类</div>
+                    <a href="#" class="drop-link" data-bird="白腹鹞">白腹鹞</a>
+                    <a href="#" class="drop-link" data-bird="黑翅鸢">黑翅鸢</a>
+                    <a href="#" class="drop-link" data-bird="红隼">红隼</a>
+                </div>
+            </li>
+            <li class="nav-item has-drop">
+                <a href="#">鸥类</a>
+                <div class="drop">
+                    <div class="drop-cat">鸻形目鸥科 · 18 种</div>
+                    <a href="#" class="drop-link" data-bird="海鸥">海鸥</a>
+                </div>
+            </li>
+            <li class="nav-item has-drop">
+                <a href="#">攀禽</a>
+                <div class="drop">
+                    <div class="drop-cat">对趾型足鸟类</div>
+                    <a href="#" class="drop-link" data-bird="斑鱼狗">斑鱼狗</a>
+                </div>
+            </li>
+            <li class="nav-item has-drop">
+                <a href="#">鹤类</a>
+                <div class="drop">
+                    <div class="drop-cat">鹤形目鹤科大型涉禽 · 6 种</div>
+                    <a href="#" class="drop-link" data-bird="白头鹤">白头鹤</a>
+                    <a href="#" class="drop-link" data-bird="灰鹤">灰鹤</a>
+                </div>
+            </li>
+            <li class="nav-item has-drop">
+                <a href="#">鹳类</a>
+                <div class="drop">
+                    <div class="drop-cat">鹳形目鹳科大型涉禽</div>
+                    <a href="#" class="drop-link" data-bird="东方白鹳">东方白鹳</a>
+                    <a href="#" class="drop-link" data-bird="卷羽鹈鹕">卷羽鹈鹕</a>
+                </div>
+            </li>
+            <li class="nav-item has-drop">
+                <a href="#">其他</a>
+                <div class="drop">
+                    <div class="drop-cat">其他常见鸟类</div>
+                    <a href="#" class="drop-link" data-bird="草鹭">草鹭</a>
+                    <a href="#" class="drop-link" data-bird="震旦鸦雀">震旦鸦雀</a>
+                    <a href="#" class="drop-link" data-bird="黄鹡鸰">黄鹡鸰</a>
+                    <a href="#" class="drop-link" data-bird="栗耳鹀">栗耳鹀</a>
+                    <a href="#" class="drop-link" data-bird="珠颈斑鸠">珠颈斑鸠</a>
+                </div>
+            </li>
+            <li class="nav-search">
+                <a href="#" aria-label="搜索">
+                    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <circle cx="10.5" cy="10.5" r="6.5"/>
+                        <line x1="15.5" y1="15.5" x2="21" y2="21"/>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Hero:薄荷绿背景 + 标题 + 随机轮换鸟图 -->
+    <section class="hero main-content">
+        <h1 class="hero-title">百啭集，翎鸣馆。</h1>
+        <div class="hero-figure" id="heroFigure">
+            <div class="fig-wrap" id="figWrap">
+                <img src="" alt="随机轮换的鸟类照片" class="hero-img" id="heroImg">
+                <div class="hero-overlay">
+                    <p class="bird-name" id="birdName"></p>
+                    <p class="bird-latin" id="birdLatin"></p>
+                    <p class="bird-desc" id="birdDesc"></p>
+                    <p class="bird-call" id="birdCall"></p>
+                    <button class="bird-audio" id="birdAudioBtn" hidden>▶ 播放叫声</button>
+                </div>
+            </div>
+            <p class="hero-hint">悬停查看鸟类介绍 · 每 5 秒随机轮换</p>
+        </div>
+    </section>
+
+    <!-- 科普小知识横向卡片轮播 -->
+    <section class="tips main-content">
+        <h2 class="tips-title">观鸟须知，湿地同行。</h2>
+        <p class="tips-sub">科普小知识</p>
+        <div class="tips-carousel-wrap">
+            <button class="tips-btn tips-prev" id="tipsPrev" aria-label="上一张">‹</button>
+            <div class="tips-carousel" id="tipsCarousel">
+                <article class="tip-card">
+                    <div class="tip-emoji">🔭</div>
+                    <h3>保持距离</h3>
+                    <p>使用望远镜远距离观察,与鸟类保持 50 米以上距离。繁殖期尤其不要靠近巢穴,亲鸟受惊弃巢会导致雏鸟死亡。</p>
+                </article>
+                <article class="tip-card">
+                    <div class="tip-emoji">🤫</div>
+                    <h3>轻声细语</h3>
+                    <p>鸟类听觉敏锐,大声喧哗、播放鸟鸣录音都会惊扰它们。观鸟时放低音量,用动作交流,让自然的声音回归自然。</p>
+                </article>
+                <article class="tip-card">
+                    <div class="tip-emoji">🌾</div>
+                    <h3>不惊不赶</h3>
+                    <p>切勿为拍摄起飞瞬间故意驱赶、投掷石块。鸟类每次惊飞消耗的能量,可能在迁徙途中决定生死。</p>
+                </article>
+                <article class="tip-card">
+                    <div class="tip-emoji">🥖</div>
+                    <h3>勿投喂</h3>
+                    <p>面包等人类食物会导致水鸟营养不良、水体污染,并改变迁徙习性。让鸟类在湿地里自己觅食,才是最好的保护。</p>
+                </article>
+                <article class="tip-card">
+                    <div class="tip-emoji">🌸</div>
+                    <h3>守护栖息地</h3>
+                    <p>湿地是"地球之肾",全球超 40% 鸟类依赖湿地生存。不进入封闭保育区、不采摘水生植物、不留垃圾,栖息地安好,鸟才有家。</p>
+                </article>
+                <article class="tip-card">
+                    <div class="tip-emoji">📷</div>
+                    <h3>闪光灯慎用</h3>
+                    <p>夜间或昏暗环境对夜行性鸟类慎用闪光灯,强光会暂时致盲鸟类,使其撞上障碍物或被天敌捕获。</p>
+                </article>
+                <article class="tip-card">
+                    <div class="tip-emoji">📅</div>
+                    <h3>选对时间</h3>
+                    <p>清晨日出后与傍晚日落前是观鸟黄金时段,鸟类觅食活跃。东滩湿地春秋两季候鸟迁徙过境,种类最丰富。</p>
+                </article>
+                <article class="tip-card">
+                    <div class="tip-emoji">📚</div>
+                    <h3>记录分享</h3>
+                    <p>随身携带图鉴或记录 App,记下鸟种、数量与环境。公民观鸟记录是科研保护的重要数据来源,你的每一次记录都有价值。</p>
+                </article>
+            </div>
+            <button class="tips-btn tips-next" id="tipsNext" aria-label="下一张">›</button>
+        </div>
+    </section>
+
+    <main class="content">
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

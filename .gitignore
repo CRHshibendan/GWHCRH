@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# Office 临时文件
+~$*
+
+# 部署不需要的本地文件
+截屏*.png
+_*.json
+
+# 旧的中文名资源文件夹(已迁移到 assets/)
+新建文件夹/
+鸟叫/
+fanzuiyu_副本.jpg
+fanzuiyu_副本.mp3
