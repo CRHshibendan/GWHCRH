@@ -16,7 +16,7 @@ a { text-decoration: none; color: inherit; }
     position: sticky;
     top: 0;
     z-index: 100;
-    height: 52px;
+    height: 60px;
     background: rgba(0, 0, 0, 0.72);
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
@@ -25,20 +25,38 @@ a { text-decoration: none; color: inherit; }
     justify-content: center;
 }
 
-.tp-nav a {
-    display: flex;
+/* 显眼的返回按钮:深底上亮薄荷绿胶囊 + 箭头滑出动效 */
+.tp-nav .back-home {
+    display: inline-flex;
     align-items: center;
-    gap: 6px;
-    height: 100%;
-    padding: 0 20px;
+    gap: 8px;
     font-size: 14px;
-    color: #f5f5f7;
-    opacity: 0.85;
-    transition: opacity 0.2s;
-    white-space: nowrap;
+    font-weight: 600;
+    color: #0a3d24;
+    background: #d8ffea;
+    border: 1px solid rgba(216, 255, 234, 0.6);
+    border-radius: 999px;
+    padding: 8px 22px 8px 16px;
+    transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+    box-shadow: 0 2px 14px rgba(216, 255, 234, 0.25);
 }
 
-.tp-nav a:hover { opacity: 1; }
+.tp-nav .back-home .arrow {
+    display: inline-block;
+    font-size: 16px;
+    line-height: 1;
+    transition: transform 0.25s ease;
+}
+
+.tp-nav .back-home:hover {
+    background: #edfff4;
+    box-shadow: 0 4px 20px rgba(216, 255, 234, 0.4);
+    transform: translateY(-1px);
+}
+
+.tp-nav .back-home:hover .arrow {
+    transform: translateX(-4px);
+}
 
 /* Hero 大区块 */
 .tp-hero {
