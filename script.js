@@ -567,5 +567,69 @@ figWrap.addEventListener('click', function (e) {
     update(); // 初始位置(刷新后停留在页面中部时也正确)
 })();
 
+// ===== 鼠标羽毛拖尾 =====
+// 桌面端鼠标移动时留下淡淡的羽毛剪影,小羽毛边飘边淡出(~1s);
+// 单个复用 DOM 节点池,节流 + 距离阈值,开销极小;触屏/减弱动态效果时禁用
+(function () {
+    if (window.matchMedia('(hover: none)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var POOL = 14;          // 羽毛池大小
+    var GAP = 42;           // 每移动多少 px 掉一根羽毛
+    var lastX = -999, lastY = -999;
+    var pool = [];
+    var frag = document.createDocumentFragment();
+
+    for (var i = 0; i < POOL; i++) {
+        var f = document.createElement('div');
+        f.className = 'feather-trail';
+        f.setAttribute('aria-hidden', 'true');
+        f.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor">' +
+            '<path d="M20.5 3.5c-3.2-1.5-7.4-.6-10.3 2.3C7.3 8.7 6.4 12.9 7.9 16c-1.9 1-3.5 2.4-4.6 4.1.3.2.6.4.9.6 1-1.6 2.5-3 4.3-3.8.3.5.6.9 1 1.3 2.9 2.9 7.1 3.8 10.3 2.3L21 18.8 18.7 6.3 20.5 3.5z"/>' +
+        '</svg>';
+        frag.appendChild(f);
+        pool.push({ el: f, free: true });
+    }
+    document.body.appendChild(frag);
+
+    // 取一根空闲羽毛(或最旧的那根)
+    function take() {
+        for (var j = 0; j < POOL; j++) {
+            if (pool[j].free) return pool[j];
+        }
+        return pool[0];
+    }
+
+    document.addEventListener('mousemove', function (e) {
+        var dx = e.clientX - lastX, dy = e.clientY - lastY;
+        if (dx * dx + dy * dy < GAP * GAP) return; // 距离不足,不掉毛
+        lastX = e.clientX;
+        lastY = e.clientY;
+
+        var p = take();
+        p.free = false;
+        var el = p.el;
+        // 落点带一点随机偏移,旋转随机,像羽毛自然飘落
+        var rot = Math.atan2(dy, dx) * 180 / Math.PI;
+        el.style.left = e.clientX + 'px';
+        el.style.top = e.clientY + 'px';
+        el.style.setProperty('--fr', (rot + (Math.random() * 60 - 30)).toFixed(0) + 'deg');
+        el.style.setProperty('--fdx', (Math.random() * 36 - 18).toFixed(0) + 'px');
+        el.style.setProperty('--fdy', (14 + Math.random() * 26).toFixed(0) + 'px');
+        el.style.setProperty('--fs', (0.5 + Math.random() * 0.5).toFixed(2));
+        el.classList.remove('fly');
+        // 强制重排,重启动画
+        void el.offsetWidth;
+        el.classList.add('fly');
+
+        // 动画结束后归还节点池
+        clearTimeout(p.timer);
+        p.timer = setTimeout(function () {
+            p.free = true;
+            el.classList.remove('fly');
+        }, 1100);
+    }, { passive: true });
+})();
+
 // 初始展示反嘴鹬(与原设计一致),之后每 5 秒随机轮换(悬停时暂停)
 showBird(0);

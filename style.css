@@ -50,6 +50,7 @@ body {
     --btn-bg: #f5f5f7;
     --img-bg: #fff;
     --shadow: rgba(0, 0, 0, 0.12);
+    --feather: rgba(70, 110, 90, 0.32);  /* 羽毛拖尾:浅色模式用墨绿半透明 */
     color-scheme: light;
 }
 
@@ -72,6 +73,7 @@ body.dark {
     --btn-bg: #3a3a40;
     --img-bg: #2a2a30;
     --shadow: rgba(0, 0, 0, 0.5);
+    --feather: rgba(174, 230, 200, 0.25);  /* 羽毛拖尾:暗色模式用亮薄荷绿半透明 */
     color-scheme: dark;
 }
 
@@ -877,5 +879,44 @@ body.dark .hero {
 
     .wall-back {
         display: none;
+    }
+}
+
+/* ===== 鼠标羽毛拖尾 ===== */
+.feather-trail {
+    position: fixed;
+    left: -100px;
+    top: -100px;
+    width: 22px;
+    height: 22px;
+    margin: -11px 0 0 -11px;   /* 以鼠标点为中心 */
+    pointer-events: none;      /* 不挡任何点击 */
+    z-index: 9999;
+    color: var(--feather);
+    opacity: 0;
+}
+
+.feather-trail svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* 掉毛动画:淡入 → 沿随机方向轻飘 + 微转 → 淡出消失(约 1.05s) */
+.feather-trail.fly {
+    animation: feather-fly 1.05s ease-out forwards;
+}
+
+@keyframes feather-fly {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) rotate(var(--fr, 0deg)) scale(var(--fs, 0.7));
+    }
+    15% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--fdx, 0px), var(--fdy, 30px)) rotate(calc(var(--fr, 0deg) + 40deg)) scale(var(--fs, 0.7));
     }
 }
