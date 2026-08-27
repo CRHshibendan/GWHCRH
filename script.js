@@ -533,49 +533,7 @@ figWrap.addEventListener('click', function (e) {
         grid.appendChild(card);
     });
 
-    // 整面墙透视倾斜:鼠标在墙区域内移动,±4° 内用 rAF 平滑插值(不直接跟随抖动)
-    var wall = document.getElementById('wall-section');
-    // 手机端/触屏设备关闭墙体倾斜(点击直接跳详情)
-    if (!wall) return;
-    if (window.matchMedia('(hover: none)').matches) return;
-    if (window.matchMedia('(max-width: 767px)').matches) return;
-
-    var MAX_TILT = 2.5;         // 最大倾角(度,收敛避免与卡片翻面打架)
-    var EASE = 0.1;            // 插值系数:越小越绵
-    var targetRX = 0, targetRZ = 0; // 目标角度(只用 X 轴俯仰 + Z 轴滚转,避开与卡片翻面同轴的 Y 轴)
-    var curRX = 0, curRZ = 0;       // 当前角度
-    var rafId = null;
-
-    function frame() {
-        curRX += (targetRX - curRX) * EASE;
-        curRZ += (targetRZ - curRZ) * EASE;
-        grid.style.transform = 'rotateX(' + curRX.toFixed(2) + 'deg) rotateZ(' + curRZ.toFixed(2) + 'deg)';
-        // 足够接近目标且无新输入时停帧,省性能
-        if (Math.abs(targetRX - curRX) > 0.02 || Math.abs(targetRZ - curRZ) > 0.02) {
-            rafId = requestAnimationFrame(frame);
-        } else {
-            rafId = null;
-        }
-    }
-
-    function wake() {
-        if (!rafId) rafId = requestAnimationFrame(frame);
-    }
-
-    wall.addEventListener('mousemove', function (e) {
-        var r = wall.getBoundingClientRect();
-        var px = ((e.clientX - r.left) / r.width) * 2 - 1;   // -1 ~ 1
-        var py = ((e.clientY - r.top) / r.height) * 2 - 1;
-        targetRZ = px * MAX_TILT * 0.6;  // 左右移动 → 轻微滚转(Z 轴,幅度再打折)
-        targetRX = -py * MAX_TILT;       // 上下移动 → 俯仰(X 轴)
-        wake();
-    });
-
-    wall.addEventListener('mouseleave', function () {
-        targetRX = 0;
-        targetRY = 0;
-        wake();
-    });
+    // 墙体 3D 倾斜效果已按需求取消(卡片墙保留静态网格 + 悬停翻面)
 })();
 
 // ===== Hero 视差滚动 =====

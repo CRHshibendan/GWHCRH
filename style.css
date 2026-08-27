@@ -762,8 +762,6 @@ body.dark .hero {
 }
 
 .wall-stage {
-    /* 整面墙的透视:鼠标移动时墙体在 script.js 里做 ±4° 倾斜 */
-    perspective: 1200px;
     max-width: 1240px;
     margin: 0 auto;
     padding: 0 24px;
@@ -773,8 +771,6 @@ body.dark .hero {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(176px, 1fr));
     gap: 22px;
-    transform-style: preserve-3d;
-    will-change: transform;
 }
 
 /* 单卡:preserve-3d + 悬停绕 Y 轴翻面 */
