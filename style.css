@@ -84,15 +84,17 @@ a {
     border-radius: 0 0 18px 18px;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
     opacity: 0;
+    visibility: hidden;
     transform: translateY(-8px);
     pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
     overflow: hidden;
     z-index: 60;
 }
 
 .nav-search.open .search-panel {
     opacity: 1;
+    visibility: visible;
     transform: translateY(0);
     pointer-events: auto;
 }
