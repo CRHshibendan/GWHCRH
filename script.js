@@ -575,7 +575,7 @@ figWrap.addEventListener('click', function (e) {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     var POOL = 14;          // 羽毛池大小
-    var GAP = 45;           // 每移动多少 px 掉一根羽毛(密度再翻倍)
+    var GAP = 90;           // 每移动多少 px 掉一根羽毛(密度减半,间距回到 90px)
     var lastX = -999, lastY = -999;
     var pool = [];
     var frag = document.createDocumentFragment();
