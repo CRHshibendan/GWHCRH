@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>闪光灯慎用。观鸟须知 · 翎鸣馆</title>
+<link rel="stylesheet" href="tips.css">
+<style>.tp-hero { background: linear-gradient(180deg, #000 0%, #1c1c1e 100%); } .tp-stat .num { color: #98989d; }</style>
+</head>
+<body>
+<nav class="tp-nav"><a href="../index.html">‹ 翎鸣馆</a></nav>
+
+<section class="tp-hero">
+    <span class="tp-emoji">📷</span>
+    <h1>闪光灯慎用。</h1>
+    <p>强光一闪，它的世界黑了几秒。</p>
+</section>
+
+<section class="tp-stats">
+    <div class="tp-stats-grid">
+        <div class="tp-stat"><div class="num">数<small>秒</small></div><div class="label">暂时致盲</div><div class="sub">强闪后鸟类视觉恢复需要的时间</div></div>
+<div class="tp-stat"><div class="num">夜间</div><div class="label">高风险时段</div><div class="sub">夜行性鸟类靠夜视活动，闪光危害更大</div></div>
+<div class="tp-stat"><div class="num">0</div><div class="label">必要的闪光</div><div class="sub">绝大多数观鸟场景光线都足够</div></div>
+    </div>
+</section>
+
+<section class="tp-section" data-scroll>
+    <h2>黑夜里的它，比照片更重要。</h2>
+    <p class="tp-body">鸮形目等夜行性鸟类靠卓越的夜视能力捕猎、躲避天敌。一次近距离闪光，等于让它"眼前一黑"数秒——足够撞上树枝、落水或被天敌抓住。白天光线充足时请关闭闪光；夜间拍摄请使用高感光度与自然光。</p>
+</section>
+
+<section class="tp-dd">
+    <div class="tp-dd-grid">
+        <div class="tp-do"><h3>应该做</h3><ul><li>白天拍摄时关闭自动闪光</li>
+<li>夜间用高感光度+长曝光</li>
+<li>红光手电照路，功率调低</li>
+<li>遇到夜巡的鸮，安静退开</li></ul></div>
+        <div class="tp-dont"><h3>不要做</h3><ul><li>对夜行性鸟类使用闪光灯</li>
+<li>用强光手电照射栖枝上的鸮</li>
+<li>闪光灯连续连拍</li>
+<li>为"眼神光"效果打闪光</li></ul></div>
+    </div>
+</section>
+
+<section class="tp-birds">
+    <h2>在东滩，请这样遇见它们。</h2>
+    <div class="tp-birds-grid">
+        <div class="tp-bird-card"><img src="../assets/images/raptors/hongsun-1.png" alt="红隼" loading="lazy"><div class="cap"><strong>红隼</strong><em>Falco tinnunculus</em></div></div>
+<div class="tp-bird-card"><img src="../assets/images/raptors/baifuyao-1.png" alt="白腹鹞" loading="lazy"><div class="cap"><strong>白腹鹞</strong><em>Circus spilonotus</em></div></div>
+<div class="tp-bird-card"><img src="../assets/images/spoonbills/heilianpilu-1.png" alt="黑脸琵鹭" loading="lazy"><div class="cap"><strong>黑脸琵鹭</strong><em>Platalea minor</em></div></div>
+    </div>
+</section>
+
+<section class="tp-cta">
+    <h2>回到翎鸣馆，看白天的猎手。</h2>
+    <a href="../index.html">回到首页 ›</a>
+</section>
+
+<footer class="tp-foot">翎鸣馆 · 鸟类科普 · 数据来源：东滩湿地鸟类资源手册</footer>
+
+<script>
+// 滚动渐显(苹果官网式)
+var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+        if (e.isIntersecting) e.target.classList.add('visible');
+    });
+}, { threshold: 0.3 });
+document.querySelectorAll('[data-scroll]').forEach(function (s) { io.observe(s); });
+</script>
+</body>
+</html>

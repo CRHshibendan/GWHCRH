@@ -319,6 +319,27 @@ body.dropdown-open .main-content {
     transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
     /* 兜底:emoji 动画无论如何不会超出卡片 */
     overflow: hidden;
+    cursor: pointer;
+    position: relative;
+}
+
+/* 可点击提示:右下角"了解更多 ›" */
+.tip-card::after {
+    content: "了解更多 ›";
+    position: absolute;
+    right: 22px;
+    bottom: 18px;
+    font-size: 12px;
+    color: #06c;
+    opacity: 0;
+    transform: translateX(6px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.tip-card:hover::after,
+.tip-card.active::after {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .tip-card:hover {

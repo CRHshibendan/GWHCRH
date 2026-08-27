@@ -471,6 +471,16 @@ figWrap.addEventListener('click', function (e) {
         card.addEventListener('mouseleave', function () {
             card.classList.remove('active');
         });
+
+        // 点击/回车跳转到对应科普详情页
+        function go() {
+            var slug = card.getAttribute('data-tip');
+            if (slug) window.location.href = 'tips/' + slug + '.html';
+        }
+        card.addEventListener('click', go);
+        card.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
+        });
     });
 })();
 

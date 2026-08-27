@@ -1,0 +1,323 @@
+/* ===== 科普详情页(苹果风格) ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: "SF Pro Display", "SF Pro SC", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+    color: #1d1d1f;
+    background: #000;
+    -webkit-font-smoothing: antialiased;
+}
+
+ul { list-style: none; }
+a { text-decoration: none; color: inherit; }
+
+/* 返回导航 */
+.tp-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 52px;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tp-nav a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 100%;
+    padding: 0 20px;
+    font-size: 14px;
+    color: #f5f5f7;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+}
+
+.tp-nav a:hover { opacity: 1; }
+
+/* Hero 大区块 */
+.tp-hero {
+    min-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 24px 100px;
+    position: relative;
+    overflow: hidden;
+}
+
+.tp-hero .tp-emoji {
+    font-size: 72px;
+    margin-bottom: 28px;
+    display: block;
+    filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.35));
+}
+
+.tp-hero h1 {
+    font-size: clamp(40px, 7vw, 88px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    color: #f5f5f7;
+    max-width: 900px;
+}
+
+.tp-hero p {
+    margin-top: 22px;
+    font-size: clamp(18px, 2.4vw, 26px);
+    font-weight: 400;
+    line-height: 1.5;
+    color: rgba(245, 245, 247, 0.75);
+    max-width: 720px;
+}
+
+/* 大数据区块 */
+.tp-stats {
+    background: #f5f5f7;
+    padding: 90px 24px;
+}
+
+.tp-stats-grid {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+}
+
+.tp-stat {
+    background: #fff;
+    border-radius: 28px;
+    padding: 44px 32px;
+    text-align: center;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+}
+
+.tp-stat .num {
+    font-size: 56px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--accent, #06c);
+    line-height: 1;
+}
+
+.tp-stat .num small {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.tp-stat .label {
+    margin-top: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1d1d1f;
+}
+
+.tp-stat .sub {
+    margin-top: 6px;
+    font-size: 13px;
+    color: #86868b;
+    line-height: 1.5;
+}
+
+/* 大字陈述段(苹果式滚动渐显) */
+.tp-section {
+    background: #fff;
+    padding: 130px 24px;
+    text-align: center;
+}
+
+.tp-section.dark {
+    background: #000;
+}
+
+.tp-section h2 {
+    font-size: clamp(32px, 5vw, 64px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.12;
+    max-width: 860px;
+    margin: 0 auto;
+    color: #1d1d1f;
+    opacity: 0.12;
+    transform: translateY(36px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.tp-section.dark h2 { color: #f5f5f7; }
+
+.tp-section.visible h2 {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tp-section .tp-body {
+    max-width: 680px;
+    margin: 34px auto 0;
+    font-size: 19px;
+    line-height: 1.65;
+    color: #6e6e73;
+    opacity: 0;
+    transition: opacity 1.1s ease 0.25s;
+}
+
+.tp-section.dark .tp-body { color: #a1a1a6; }
+
+.tp-section.visible .tp-body { opacity: 1; }
+
+/* Do / Don't 对照 */
+.tp-dd {
+    background: #f5f5f7;
+    padding: 110px 24px;
+}
+
+.tp-dd-grid {
+    max-width: 980px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+@media (max-width: 734px) {
+    .tp-dd-grid { grid-template-columns: 1fr; }
+}
+
+.tp-do, .tp-dont {
+    border-radius: 28px;
+    padding: 48px 40px;
+    background: #fff;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+}
+
+.tp-dont { background: #1d1d1f; color: #f5f5f7; }
+
+.tp-do h3, .tp-dont h3 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 26px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tp-do li, .tp-dont li {
+    font-size: 16px;
+    line-height: 1.6;
+    padding: 12px 0 12px 30px;
+    position: relative;
+    color: #424245;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.tp-dont li { color: #d2d2d7; border-bottom-color: rgba(255, 255, 255, 0.1); }
+
+.tp-do li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #30d158;
+    font-weight: 700;
+}
+
+.tp-dont li::before {
+    content: "✕";
+    position: absolute;
+    left: 0;
+    color: #ff453a;
+    font-weight: 700;
+}
+
+/* 鸟图展示 */
+.tp-birds {
+    background: #000;
+    padding: 110px 24px 130px;
+    text-align: center;
+}
+
+.tp-birds h2 {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700;
+    color: #f5f5f7;
+    letter-spacing: -0.01em;
+}
+
+.tp-birds-grid {
+    max-width: 1080px;
+    margin: 48px auto 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.tp-bird-card {
+    background: #f5f5f7;
+    border-radius: 24px;
+    overflow: hidden;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.tp-bird-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 48px rgba(255, 255, 255, 0.08);
+}
+
+.tp-bird-card img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    background: #e8e8ed;
+    display: block;
+}
+
+.tp-bird-card .cap {
+    padding: 18px 22px 22px;
+    text-align: left;
+}
+
+.tp-bird-card .cap strong { font-size: 17px; display: block; }
+
+.tp-bird-card .cap em { font-style: italic; font-size: 12px; color: #86868b; display: block; margin-top: 2px; }
+
+/* 底部 CTA */
+.tp-cta {
+    background: #f5f5f7;
+    padding: 130px 24px;
+    text-align: center;
+}
+
+.tp-cta h2 {
+    font-size: clamp(30px, 4.6vw, 56px);
+    font-weight: 700;
+    color: #1d1d1f;
+    letter-spacing: -0.02em;
+    max-width: 760px;
+    margin: 0 auto;
+    line-height: 1.14;
+}
+
+.tp-cta a {
+    display: inline-block;
+    margin-top: 32px;
+    font-size: 19px;
+    color: #06c;
+    transition: color 0.2s;
+}
+
+.tp-cta a:hover { text-decoration: underline; }
+
+/* 版权脚 */
+.tp-foot {
+    background: #f5f5f7;
+    padding: 0 24px 46px;
+    text-align: center;
+    font-size: 12px;
+    color: #86868b;
+}

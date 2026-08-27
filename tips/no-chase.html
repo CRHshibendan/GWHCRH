@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不惊不赶。观鸟须知 · 翎鸣馆</title>
+<link rel="stylesheet" href="tips.css">
+<style>.tp-hero { background: linear-gradient(180deg, #000 0%, #0b2e18 100%); } .tp-stat .num { color: #30d158; }</style>
+</head>
+<body>
+<nav class="tp-nav"><a href="../index.html">‹ 翎鸣馆</a></nav>
+
+<section class="tp-hero">
+    <span class="tp-emoji">🌾</span>
+    <h1>不惊不赶。</h1>
+    <p>它每一次仓皇起飞，都在预支迁徙的体力。</p>
+</section>
+
+<section class="tp-stats">
+    <div class="tp-stats-grid">
+        <div class="tp-stat"><div class="num">3<small>×</small></div><div class="label">惊飞耗能</div><div class="sub">起飞瞬间能耗约为静息状态的数倍</div></div>
+<div class="tp-stat"><div class="num">数<small>千公里</small></div><div class="label">迁徙征途</div><div class="sub">东滩候鸟往返繁殖地与越冬地的距离</div></div>
+<div class="tp-stat"><div class="num">0</div><div class="label">值得的起飞</div><div class="sub">为照片制造的每一次惊飞都不值得</div></div>
+    </div>
+</section>
+
+<section class="tp-section" data-scroll>
+    <h2>一次"起飞大片"，可能是一条命。</h2>
+    <p class="tp-body">候鸟把能量存成脂肪，是赶路的盘缠。被驱赶、被惊飞一次，消耗的体能可能需要在滩涂上多补好几天——而迁徙窗口不等人。守在原地、让鸟按自己的节奏活动，你总会等到自然的精彩瞬间。</p>
+</section>
+
+<section class="tp-dd">
+    <div class="tp-dd-grid">
+        <div class="tp-do"><h3>应该做</h3><ul><li>耐心守候,等鸟自然靠近</li>
+<li>拍摄觅食、理羽等自然行为</li>
+<li>在安全距离外用长焦镜头</li>
+<li>群体观察时分散站位,留出逃离通道</li></ul></div>
+        <div class="tp-dont"><h3>不要做</h3><ul><li>投掷石块、拍手驱赶</li>
+<li>追着飞行方向奔跑驱赶</li>
+<li>为"飞版"照片反复惊扰同一鸟群</li>
+<li>带宠物进入观鸟区不牵绳</li></ul></div>
+    </div>
+</section>
+
+<section class="tp-birds">
+    <h2>在东滩，请这样遇见它们。</h2>
+    <div class="tp-birds-grid">
+        <div class="tp-bird-card"><img src="../assets/images/others/juanyutili-1.png" alt="卷羽鹈鹕" loading="lazy"><div class="cap"><strong>卷羽鹈鹕</strong><em>Pelecanus crispus</em></div></div>
+<div class="tp-bird-card"><img src="../assets/images/waterfowl/xiaotianer-1.png" alt="小天鹅" loading="lazy"><div class="cap"><strong>小天鹅</strong><em>Cygnus columbianus</em></div></div>
+<div class="tp-bird-card"><img src="../assets/images/others/dongfangbaiguan-1.png" alt="东方白鹳" loading="lazy"><div class="cap"><strong>东方白鹳</strong><em>Ciconia boyciana</em></div></div>
+    </div>
+</section>
+
+<section class="tp-cta">
+    <h2>回到翎鸣馆，认识长途旅者。</h2>
+    <a href="../index.html">回到首页 ›</a>
+</section>
+
+<footer class="tp-foot">翎鸣馆 · 鸟类科普 · 数据来源：东滩湿地鸟类资源手册</footer>
+
+<script>
+// 滚动渐显(苹果官网式)
+var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+        if (e.isIntersecting) e.target.classList.add('visible');
+    });
+}, { threshold: 0.3 });
+document.querySelectorAll('[data-scroll]').forEach(function (s) { io.observe(s); });
+</script>
+</body>
+</html>

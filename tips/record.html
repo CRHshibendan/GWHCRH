@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>记录分享。观鸟须知 · 翎鸣馆</title>
+<link rel="stylesheet" href="tips.css">
+<style>.tp-hero { background: linear-gradient(180deg, #000 0%, #16123d 100%); } .tp-stat .num { color: #5e5ce6; }</style>
+</head>
+<body>
+<nav class="tp-nav"><a href="../index.html">‹ 翎鸣馆</a></nav>
+
+<section class="tp-hero">
+    <span class="tp-emoji">📚</span>
+    <h1>记录分享。</h1>
+    <p>你的一次记录，是保护数据的一块拼图。</p>
+</section>
+
+<section class="tp-stats">
+    <div class="tp-stats-grid">
+        <div class="tp-stat"><div class="num">公民<small>科学</small></div><div class="label">数据来源</div><div class="sub">观鸟记录已成为科研保护的重要输入</div></div>
+<div class="tp-stat"><div class="num">种<small>+</small></div><div class="label">可记录信息</div><div class="sub">鸟种、数量、时间、地点、行为</div></div>
+<div class="tp-stat"><div class="num">一次</div><div class="label">就有价值</div><div class="sub">规律来自千万条"普通"记录</div></div>
+    </div>
+</section>
+
+<section class="tp-section" data-scroll>
+    <h2>观鸟的尽头，是回馈自然。</h2>
+    <p class="tp-body">专业团队无法覆盖每片滩涂，观鸟者的记录恰好补上空白——什么鸟、多少只、在哪、在做什么。这些数据汇入迁徙研究、保育区划定与濒危评估。记下你看到的，让它被更多人看见。</p>
+</section>
+
+<section class="tp-dd">
+    <div class="tp-dd-grid">
+        <div class="tp-do"><h3>应该做</h3><ul><li>用笔记本或记录 App 及时登记</li>
+<li>记录鸟种、数量、时间、位置、行为</li>
+<li>上传至观鸟记录平台共享</li>
+<li>发现罕见鸟或异常情况及时报告保育机构</li></ul></div>
+        <div class="tp-dont"><h3>不要做</h3><ul><li>看完就走不留记录</li>
+<li>只发照片不写时间地点</li>
+<li>为流量泄露敏感鸟种的精确巢址</li>
+<li>编造、凑数污染数据</li></ul></div>
+    </div>
+</section>
+
+<section class="tp-birds">
+    <h2>在东滩，请这样遇见它们。</h2>
+    <div class="tp-birds-grid">
+        <div class="tp-bird-card"><img src="../assets/images/others/lierwu-1.png" alt="栗耳鹀" loading="lazy"><div class="cap"><strong>栗耳鹀</strong><em>Emberiza fucata</em></div></div>
+<div class="tp-bird-card"><img src="../assets/images/waterfowl/luowenya-1.png" alt="罗纹鸭" loading="lazy"><div class="cap"><strong>罗纹鸭</strong><em>Mareca falcata</em></div></div>
+<div class="tp-bird-card"><img src="../assets/images/kingfishers/banyugou-1.png" alt="斑鱼狗" loading="lazy"><div class="cap"><strong>斑鱼狗</strong><em>Ceryle rudis</em></div></div>
+    </div>
+</section>
+
+<section class="tp-cta">
+    <h2>回到翎鸣馆，从今天开始记录。</h2>
+    <a href="../index.html">回到首页 ›</a>
+</section>
+
+<footer class="tp-foot">翎鸣馆 · 鸟类科普 · 数据来源：东滩湿地鸟类资源手册</footer>
+
+<script>
+// 滚动渐显(苹果官网式)
+var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+        if (e.isIntersecting) e.target.classList.add('visible');
+    });
+}, { threshold: 0.3 });
+document.querySelectorAll('[data-scroll]').forEach(function (s) { io.observe(s); });
+</script>
+</body>
+</html>

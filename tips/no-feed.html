@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>勿投喂。观鸟须知 · 翎鸣馆</title>
+<link rel="stylesheet" href="tips.css">
+<style>.tp-hero { background: linear-gradient(180deg, #000 0%, #33210a 100%); } .tp-stat .num { color: #ff9f0a; }</style>
+</head>
+<body>
+<nav class="tp-nav"><a href="../index.html">‹ 翎鸣馆</a></nav>
+
+<section class="tp-hero">
+    <span class="tp-emoji">🥖</span>
+    <h1>勿投喂。</h1>
+    <p>你的面包，是它一生的偏食。</p>
+</section>
+
+<section class="tp-stats">
+    <div class="tp-stats-grid">
+        <div class="tp-stat"><div class="num">0</div><div class="label">面包的营养价值</div><div class="sub">对水鸟而言是"空热量"，几乎无蛋白质</div></div>
+<div class="tp-stat"><div class="num">天使翅膀</div><div class="label">投喂后遗症</div><div class="sub">长期吃面包的小天鹅羽毛畸形病变</div></div>
+<div class="tp-stat"><div class="num">1<small>处</small></div><div class="label">投喂点污染</div><div class="sub">残饵与粪便堆积加速水体富营养化</div></div>
+    </div>
+</section>
+
+<section class="tp-section" data-scroll>
+    <h2>爱吃，不等于该吃。</h2>
+    <p class="tp-body">面包、饼干对人类是食物，对水鸟却是"垃圾食品"：蛋白质、钙磷比例都不对。长期投喂还会让候鸟改变迁徙节律——食物"稳定"了，该南下的鸟就不走了，错过繁殖季。爱它，就让它自己觅食。</p>
+</section>
+
+<section class="tp-dd">
+    <div class="tp-dd-grid">
+        <div class="tp-do"><h3>应该做</h3><ul><li>欣赏水鸟天然的滤食、潜水行为</li>
+<li>在鸟类食堂(科学补给点)外观察</li>
+<li>支持滩涂生态保育项目</li>
+<li>把"不投喂"讲给同行的人听</li></ul></div>
+        <div class="tp-dont"><h3>不要做</h3><ul><li>投喂面包、饼干、米粒</li>
+<li>为拍照用食物引诱鸟靠近</li>
+<li>留下任何食物残渣</li>
+<li>在越冬地"定时投喂"候鸟</li></ul></div>
+    </div>
+</section>
+
+<section class="tp-birds">
+    <h2>在东滩，请这样遇见它们。</h2>
+    <div class="tp-birds-grid">
+        <div class="tp-bird-card"><img src="../assets/images/waterfowl/pizuiya-1.png" alt="琵嘴鸭" loading="lazy"><div class="cap"><strong>琵嘴鸭</strong><em>Spatula clypeata</em></div></div>
+<div class="tp-bird-card"><img src="../assets/images/waterfowl/banzuiya-1.png" alt="斑嘴鸭" loading="lazy"><div class="cap"><strong>斑嘴鸭</strong><em>Anas zonorhyncha</em></div></div>
+<div class="tp-bird-card"><img src="../assets/images/waterfowl/hualianya-1.png" alt="花脸鸭" loading="lazy"><div class="cap"><strong>花脸鸭</strong><em>Sibirionetta formosa</em></div></div>
+    </div>
+</section>
+
+<section class="tp-cta">
+    <h2>回到翎鸣馆，看它们自己觅食。</h2>
+    <a href="../index.html">回到首页 ›</a>
+</section>
+
+<footer class="tp-foot">翎鸣馆 · 鸟类科普 · 数据来源：东滩湿地鸟类资源手册</footer>
+
+<script>
+// 滚动渐显(苹果官网式)
+var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+        if (e.isIntersecting) e.target.classList.add('visible');
+    });
+}, { threshold: 0.3 });
+document.querySelectorAll('[data-scroll]').forEach(function (s) { io.observe(s); });
+</script>
+</body>
+</html>

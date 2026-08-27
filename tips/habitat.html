@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>守护栖息地。观鸟须知 · 翎鸣馆</title>
+<link rel="stylesheet" href="tips.css">
+<style>.tp-hero { background: linear-gradient(180deg, #000 0%, #0a2f36 100%); } .tp-stat .num { color: #30b0c7; }</style>
+</head>
+<body>
+<nav class="tp-nav"><a href="../index.html">‹ 翎鸣馆</a></nav>
+
+<section class="tp-hero">
+    <span class="tp-emoji">🌸</span>
+    <h1>守护栖息地。</h1>
+    <p>湿地安好，鸟才有家。</p>
+</section>
+
+<section class="tp-stats">
+    <div class="tp-stats-grid">
+        <div class="tp-stat"><div class="num">40<small>%</small></div><div class="label">依赖湿地</div><div class="sub">全球已知鸟类中依赖湿地生存的比例</div></div>
+<div class="tp-stat"><div class="num">百万<small>+</small></div><div class="label">东滩过境候鸟</div><div class="sub">崇明东滩每年承载的迁徙候鸟规模</div></div>
+<div class="tp-stat"><div class="num">国际重要湿地</div><div class="label">Ramsar 认证</div><div class="sub">东滩是国际重要湿地公约认证地</div></div>
+    </div>
+</section>
+
+<section class="tp-section" data-scroll>
+    <h2>留住湿地，就是留住候鸟的加油站。</h2>
+    <p class="tp-body">湿地是"地球之肾"——净化水质、调蓄洪水，更是候鸟迁徙路上不可替代的驿站。东滩位于东亚—澳大利西亚迁飞区的核心节点，潮滩上的每一片底栖生物，都是候鸟的口粮。不进入封闭保育区、不采挖底栖生物、不留垃圾，就是最直接的守护。</p>
+</section>
+
+<section class="tp-dd">
+    <div class="tp-dd-grid">
+        <div class="tp-do"><h3>应该做</h3><ul><li>沿开放步道与观鸟屋活动</li>
+<li>参与净滩与湿地志愿活动</li>
+<li>支持生态修复与保育区划建</li>
+<li>向朋友介绍湿地的重要性</li></ul></div>
+        <div class="tp-dont"><h3>不要做</h3><ul><li>翻越围栏进入封闭保育区</li>
+<li>挖蛤蜊、捉螃蟹破坏底栖生态</li>
+<li>采摘水生植物、捡拾鸟蛋</li>
+<li>在滩涂留下任何垃圾</li></ul></div>
+    </div>
+</section>
+
+<section class="tp-birds">
+    <h2>在东滩，请这样遇见它们。</h2>
+    <div class="tp-birds-grid">
+        <div class="tp-bird-card"><img src="../assets/images/shorebirds/fanzuiyu-1.png" alt="反嘴鹬" loading="lazy"><div class="cap"><strong>反嘴鹬</strong><em>Recurvirostra avosetta</em></div></div>
+<div class="tp-bird-card"><img src="../assets/images/shorebirds/fengtoumaiji-1.png" alt="凤头麦鸡" loading="lazy"><div class="cap"><strong>凤头麦鸡</strong><em>Vanellus vanellus</em></div></div>
+<div class="tp-bird-card"><img src="../assets/images/waterfowl/bantouqiushaya-1.png" alt="斑头秋沙鸭" loading="lazy"><div class="cap"><strong>斑头秋沙鸭</strong><em>Mergellus albellus</em></div></div>
+    </div>
+</section>
+
+<section class="tp-cta">
+    <h2>回到翎鸣馆，看湿地的主人。</h2>
+    <a href="../index.html">回到首页 ›</a>
+</section>
+
+<footer class="tp-foot">翎鸣馆 · 鸟类科普 · 数据来源：东滩湿地鸟类资源手册</footer>
+
+<script>
+// 滚动渐显(苹果官网式)
+var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+        if (e.isIntersecting) e.target.classList.add('visible');
+    });
+}, { threshold: 0.3 });
+document.querySelectorAll('[data-scroll]').forEach(function (s) { io.observe(s); });
+</script>
+</body>
+</html>

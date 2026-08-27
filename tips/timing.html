@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>选对时间。观鸟须知 · 翎鸣馆</title>
+<link rel="stylesheet" href="tips.css">
+<style>.tp-hero { background: linear-gradient(180deg, #000 0%, #33170a 100%); } .tp-stat .num { color: #ff6b35; }</style>
+</head>
+<body>
+<nav class="tp-nav"><a href="../index.html">‹ 翎鸣馆</a></nav>
+
+<section class="tp-hero">
+    <span class="tp-emoji">📅</span>
+    <h1>选对时间。</h1>
+    <p>清晨与黄昏，是湿地最热闹的两个钟头。</p>
+</section>
+
+<section class="tp-stats">
+    <div class="tp-stats-grid">
+        <div class="tp-stat"><div class="num">日出后<small>1-2h</small></div><div class="label">黄金时段</div><div class="sub">鸟类觅食最活跃，光照也最柔和</div></div>
+<div class="tp-stat"><div class="num">日落前<small>1h</small></div><div class="label">次黄金</div><div class="sub">归巢前的最后一次进食高峰</div></div>
+<div class="tp-stat"><div class="num">春秋两季</div><div class="label">迁徙旺季</div><div class="sub">过境候鸟种类与数量达到峰值</div></div>
+    </div>
+</section>
+
+<section class="tp-section" data-scroll>
+    <h2>起得早的人，看得多。</h2>
+    <p class="tp-body">鸟类在晨昏最活跃：气温适合、天敌少、食物表层活跃。东滩地处东亚—澳大利西亚迁飞区，每年春秋数百万候鸟过境——选对季节再选对时辰，同一片滩涂能给你完全不同的观鸟清单。</p>
+</section>
+
+<section class="tp-dd">
+    <div class="tp-dd-grid">
+        <div class="tp-do"><h3>应该做</h3><ul><li>提前查潮汐表,高潮位前后1小时最佳</li>
+<li>春秋季蹲守迁徙过境鸟</li>
+<li>夏季关注繁殖羽与育雏行为</li>
+<li>出发前查天气,大风暴雨天鸟也躲</li></ul></div>
+        <div class="tp-dont"><h3>不要做</h3><ul><li>正午烈日下扫滩(鸟少、光硬)</li>
+<li>只看日历不看潮汐</li>
+<li>错过晨昏却抱怨"没鸟"</li>
+<li>旺季(候鸟高峰)在核心区喧哗逗留</li></ul></div>
+    </div>
+</section>
+
+<section class="tp-birds">
+    <h2>在东滩，请这样遇见它们。</h2>
+    <div class="tp-birds-grid">
+        <div class="tp-bird-card"><img src="../assets/images/others/huihe-1.png" alt="灰鹤" loading="lazy"><div class="cap"><strong>灰鹤</strong><em>Grus grus</em></div></div>
+<div class="tp-bird-card"><img src="../assets/images/others/baitouhe-1.png" alt="白头鹤" loading="lazy"><div class="cap"><strong>白头鹤</strong><em>Grus monacha</em></div></div>
+<div class="tp-bird-card"><img src="../assets/images/gulls/haiou.png" alt="海鸥" loading="lazy"><div class="cap"><strong>海鸥</strong><em>Larus canus</em></div></div>
+    </div>
+</section>
+
+<section class="tp-cta">
+    <h2>回到翎鸣馆，看看今天是谁当值。</h2>
+    <a href="../index.html">回到首页 ›</a>
+</section>
+
+<footer class="tp-foot">翎鸣馆 · 鸟类科普 · 数据来源：东滩湿地鸟类资源手册</footer>
+
+<script>
+// 滚动渐显(苹果官网式)
+var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+        if (e.isIntersecting) e.target.classList.add('visible');
+    });
+}, { threshold: 0.3 });
+document.querySelectorAll('[data-scroll]').forEach(function (s) { io.observe(s); });
+</script>
+</body>
+</html>
