@@ -262,6 +262,8 @@ a { text-decoration: none; color: inherit; }
     border-radius: 24px;
     overflow: hidden;
     transition: transform 0.5s ease, box-shadow 0.5s ease;
+    cursor: pointer;
+    position: relative;
 }
 
 .tp-bird-card:hover {
@@ -275,6 +277,67 @@ a { text-decoration: none; color: inherit; }
     object-fit: contain;
     background: #e8e8ed;
     display: block;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+/* 悬停:图片放大降透明,浮现叫声按钮(与主页一致的交互) */
+.tp-bird-card:hover img,
+.tp-bird-card.playing img {
+    transform: scale(1.08);
+    opacity: 0.25;
+}
+
+.tp-bird-card .tp-bird-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 22px;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.45s ease;
+}
+
+.tp-bird-card:hover .tp-bird-overlay,
+.tp-bird-card.playing .tp-bird-overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.tp-bird-overlay .bird-name {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1d1d1f;
+}
+
+.tp-bird-overlay .bird-call {
+    font-size: 12px;
+    color: #6e6e73;
+    margin-top: 6px;
+    line-height: 1.5;
+    max-width: 260px;
+}
+
+.tp-bird-overlay .bird-audio {
+    margin-top: 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    background: #1d7a4a;
+    border: none;
+    border-radius: 999px;
+    padding: 6px 18px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+
+.tp-bird-overlay .bird-audio:hover {
+    background: #16603b;
 }
 
 .tp-bird-card .cap {

@@ -45,9 +45,9 @@
 <section class="tp-birds">
     <h2>在东滩，请这样遇见它们。</h2>
     <div class="tp-birds-grid">
-        <div class="tp-bird-card"><img src="../assets/images/waterfowl/pizuiya-1.png" alt="琵嘴鸭" loading="lazy"><div class="cap"><strong>琵嘴鸭</strong><em>Spatula clypeata</em></div></div>
-<div class="tp-bird-card"><img src="../assets/images/waterfowl/banzuiya-1.png" alt="斑嘴鸭" loading="lazy"><div class="cap"><strong>斑嘴鸭</strong><em>Anas zonorhyncha</em></div></div>
-<div class="tp-bird-card"><img src="../assets/images/waterfowl/hualianya-1.png" alt="花脸鸭" loading="lazy"><div class="cap"><strong>花脸鸭</strong><em>Sibirionetta formosa</em></div></div>
+        <div class="tp-bird-card" data-name="琵嘴鸭"><img src="../assets/images/waterfowl/pizuiya-1.png" alt="琵嘴鸭" loading="lazy"><div class="cap"><strong>琵嘴鸭</strong><em>Spatula clypeata</em></div></div>
+<div class="tp-bird-card" data-name="斑嘴鸭"><img src="../assets/images/waterfowl/banzuiya-1.png" alt="斑嘴鸭" loading="lazy"><div class="cap"><strong>斑嘴鸭</strong><em>Anas zonorhyncha</em></div></div>
+<div class="tp-bird-card" data-name="花脸鸭"><img src="../assets/images/waterfowl/hualianya-1.png" alt="花脸鸭" loading="lazy"><div class="cap"><strong>花脸鸭</strong><em>Sibirionetta formosa</em></div></div>
     </div>
 </section>
 
@@ -66,6 +66,47 @@ var io = new IntersectionObserver(function (entries) {
     });
 }, { threshold: 0.3 });
 document.querySelectorAll('[data-scroll]').forEach(function (s) { io.observe(s); });
+
+// 鸟叫播放(与主页一致的交互)
+(function () {
+    var CALLS = {'震旦鸦雀': ['急促连续的"唧唧—唧唧—"声', 'zhendanyaque'], '黑翅鸢': ['细尖的"皮—皮皮—皮—"', 'heichiyuan'], '白琵鹭': ['幼鸟乞食时急促的"嘎嘎嘎"', 'baipilu'], '黄鹡鸰': ['飞行时清脆的"唧-"声', 'huangjiling'], '珠颈斑鸠': ['低沉的"咕咕—咕咕"', 'zhujingbanjiu'], '草鹭': ['粗哑的"呱—"声', 'caolu'], '卷羽鹈鹕': ['低沉的呼噜声', 'juanyutili'], '小天鹅': ['响亮的"咯—呵"号角声', 'xiaotianer'], '东方白鹳': ['上下喙拍打出的"嗒嗒"声', 'dongfangbaiguan'], '琵嘴鸭': ['雄鸭低哑的"呷呷"声', 'pizuiya'], '斑嘴鸭': ['响亮的"嘎—嘎—"声', 'banzuiya'], '花脸鸭': ['哨音般的"咔—"声', 'hualianya'], '反嘴鹬': ['连续清脆的"克利—克利"', 'fanzuiyu-main'], '凤头麦鸡': ['急促的"叽—嘎嘎"', 'fengtoumaiji'], '斑头秋沙鸭': ['低哑短促的"咯咯"', 'bantouqiushaya'], '红隼': ['尖锐的"叽—叽—"声', 'hongsun'], '白腹鹞': ['刺耳的"啧啧"声', 'baifuyao'], '黑脸琵鹭': ['低沉温和的鸣叫', 'heilianpilu'], '灰鹤': ['嘹亮的"嘎—"号角声', 'huihe'], '白头鹤': ['低沉的"咕噜"声', 'baitouhe'], '海鸥': ['响亮的"呀—呀—"鸣叫', 'haiou'], '栗耳鹀': ['轻快的"唧唧"小调', 'lierwu'], '罗纹鸭': ['低哑的"嘎嘎"声', 'luowenya'], '斑鱼狗': ['尖利的"叽叽—"声', 'banyugou']};
+    var current = null;
+    document.querySelectorAll('.tp-bird-card').forEach(function (card) {
+        var name = card.getAttribute('data-name');
+        var info = CALLS[name];
+        if (!info) return;
+        // 注入浮层(悬停时和主页一样:图放大降透明,浮层浮现)
+        var overlay = document.createElement('div');
+        overlay.className = 'tp-bird-overlay';
+        overlay.innerHTML = '<p class="bird-name">' + name + '</p>' +
+            '<p class="bird-call">叫声:' + info[0] + '</p>' +
+            '<button class="bird-audio">▶ 播放叫声</button>';
+        card.insertBefore(overlay, card.firstChild);
+
+        var btn = overlay.querySelector('.bird-audio');
+        var audio = null;
+        btn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            if (current && current !== audio) { current.pause(); }
+            if (audio && !audio.paused) {
+                audio.pause();
+                btn.textContent = '▶ 播放叫声';
+                card.classList.remove('playing');
+                return;
+            }
+            audio = audio || new Audio('../assets/audio/' + info[1] + '.m4a');
+            audio.currentTime = 0;
+            audio.play();
+            btn.textContent = '■ 停止';
+            card.classList.add('playing');
+            audio.addEventListener('ended', function () {
+                btn.textContent = '▶ 播放叫声';
+                card.classList.remove('playing');
+            });
+            current = audio;
+        });
+    });
+})();
 </script>
 </body>
 </html>
