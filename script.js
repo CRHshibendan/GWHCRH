@@ -449,11 +449,27 @@ figWrap.addEventListener('click', function (e) {
     if (!carousel) return;
     var step = 320; // 卡片 300 + 间距 20
 
+    // 平滑滚动:700ms ease-out,比浏览器默认 smooth 更慢更柔
+    function smoothScroll(delta) {
+        var start = carousel.scrollLeft;
+        var target = Math.max(0, Math.min(carousel.scrollWidth - carousel.clientWidth, start + delta));
+        var duration = 700;
+        var startTime = null;
+        function ease(t) { return 1 - Math.pow(1 - t, 3); } // easeOutCubic:起步快、到卡减速
+        function frame(now) {
+            if (startTime === null) startTime = now;
+            var p = Math.min(1, (now - startTime) / duration);
+            carousel.scrollLeft = start + (target - start) * ease(p);
+            if (p < 1) requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+    }
+
     document.getElementById('tipsPrev').addEventListener('click', function () {
-        carousel.scrollBy({ left: -step, behavior: 'smooth' });
+        smoothScroll(-step);
     });
     document.getElementById('tipsNext').addEventListener('click', function () {
-        carousel.scrollBy({ left: step, behavior: 'smooth' });
+        smoothScroll(step);
     });
 
     // 每张卡片 mouseenter/mouseleave 切换 .active 类,驱动 emoji/标题动画
