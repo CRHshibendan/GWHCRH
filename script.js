@@ -347,8 +347,27 @@ document.querySelectorAll('.drop-link').forEach(function (link) {
     });
 });
 
-// 点击鸟图手动换一只
-figWrap.addEventListener('click', function () {
+// 点击鸟图:触屏=展开/收起介绍浮层(浮层里可点播放叫声);桌面=手动换一只
+var isTouch = window.matchMedia('(hover: none)').matches;
+if (isTouch) {
+    var hint = document.querySelector('.hero-hint');
+    if (hint) hint.textContent = '点按图片查看介绍 · 每 5 秒随机轮换';
+}
+figWrap.addEventListener('click', function (e) {
+    if (isTouch) {
+        if (e.target.closest('.bird-audio')) return; // 播放按钮自己处理
+        figWrap.classList.toggle('touched');
+        // 浮层展开时暂停自动轮换(等同桌面悬停),收起后恢复
+        if (figWrap.classList.contains('touched')) {
+            if (hoverTimer) {
+                clearTimeout(hoverTimer);
+                hoverTimer = null;
+            }
+        } else if (!hoverTimer) {
+            hoverTimer = setTimeout(tick, 5000);
+        }
+        return;
+    }
     showBird(randomIndex());
 });
 

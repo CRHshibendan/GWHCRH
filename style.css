@@ -457,6 +457,19 @@ body.dropdown-open .main-content {
     }
 }
 
+/* 触屏设备:无 hover,改为点按图片展开/收起介绍浮层 */
+@media (hover: none) {
+    .fig-wrap.touched .hero-img {
+        transform: scale(1.08);
+        opacity: 0.25;
+    }
+
+    .fig-wrap.touched .hero-overlay {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
 @media (max-width: 640px) {
     /* 小屏收纳部分导航项 */
     .nav-list li:nth-child(n+7):nth-child(-n+10) {
