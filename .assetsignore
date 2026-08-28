@@ -1,0 +1,10 @@
+# 排除与网站无关的文件，防止超出 Cloudflare 25 MiB 单文件限制
+.git
+.gitignore
+.assetsignore
+wrangler.jsonc
+.wrangler
+node_modules
+.DS_Store
+~$*
+截屏*.png

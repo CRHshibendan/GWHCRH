@@ -6,6 +6,9 @@
 
 # 部署不需要的本地文件
 截屏*.png
+
+# wrangler 本地缓存
+.wrangler/
 _*.json
 
 # 旧的中文名资源文件夹(已迁移到 assets/)
