@@ -564,8 +564,9 @@ body.dark .bd-overlay .bird-audio:hover { background: #38b874; }
 
     function renderCheckin(seen) {
         checkinBtn.classList.toggle('checked', seen);
-        checkinText.textContent = seen ? '已看过' : '我看过它';
+        checkinText.textContent = seen ? '已看过 · 点此取消' : '我看过它';
         checkinIcon.textContent = seen ? '✓' : '👁';
+        checkinBtn.title = seen ? '再点一次取消这条观鸟记录' : '记录我看过这种鸟';
     }
 
     // 初始状态
@@ -614,8 +615,10 @@ body.dark .bd-overlay .bird-audio:hover { background: #38b874; }
 
     function doToggle(seen) {
         window.syncRecords.toggle(bird.name, seen).then(function (r) {
-            renderCheckin(r.records.indexOf(bird.name) >= 0);
-            checkinHint.textContent = r.cloud ? '✓ 记录已云同步' : '保存失败,请重试';
+            var isSeen = r.records.indexOf(bird.name) >= 0;
+            renderCheckin(isSeen);
+            checkinHint.textContent = !r.cloud ? '保存失败,请重试'
+                : (isSeen ? '✓ 记录已云同步' : '已取消这条观鸟记录');
         });
     }
 

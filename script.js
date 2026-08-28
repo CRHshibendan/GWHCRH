@@ -407,15 +407,13 @@ document.querySelectorAll('.nav-item.has-drop').forEach(function (item) {
     });
 });
 
-// 下拉栏点击鸟种 → 在 hero 展示这只鸟
+// 下拉栏点击鸟种 → 直接跳转到该鸟的详情页
 document.querySelectorAll('.drop-link').forEach(function (link) {
     link.addEventListener('click', function (e) {
         e.preventDefault();
-        var idx = findBird(link.dataset.bird);
-        if (idx >= 0) {
-            showBird(idx);
-            // 平滑滚动到鸟图处
-            figWrap.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        var name = link.dataset.bird;
+        if (findBird(name) >= 0) {
+            location.href = 'bird.html?name=' + encodeURIComponent(name);
         }
     });
 });
