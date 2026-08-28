@@ -395,6 +395,7 @@ body.dark .bd-overlay .bird-audio:hover { background: #38b874; }
 <script>initThemeToggle('themeToggle');</script>
 <script src="bird-data.js"></script>
 <script src="records-sync.js"></script>
+<script src="auth.js"></script>
 <script>
 (function () {
     var app = document.getElementById('app');
@@ -487,9 +488,21 @@ body.dark .bd-overlay .bird-audio:hover { background: #38b874; }
     renderCheckin(window.syncRecords.has(bird.name));
 
     // 云端记录到达后刷新(覆盖本地缓存初始值)
-    window.syncRecords.fetch().then(function (r) {
-        renderCheckin(r.records.indexOf(bird.name) >= 0);
-        checkinHint.textContent = r.cloud ? '记录已云同步' : '';
+    function refreshFromCloud() {
+        window.syncRecords.fetch().then(function (r) {
+            renderCheckin(r.records.indexOf(bird.name) >= 0);
+            checkinHint.textContent = r.cloud ? '✓ 记录已云同步' : '登录后可云同步';
+        });
+    }
+    refreshFromCloud();
+
+    // 登录态变化时重新拉取
+    window.addEventListener('lm-auth-change', refreshFromCloud);
+
+    // 未登录时点提示文字唤起登录弹窗
+    checkinHint.style.cursor = 'pointer';
+    checkinHint.addEventListener('click', function () {
+        if (!checkinHint.textContent.indexOf('登录')) window.lmAuth.open();
     });
 
     checkinBtn.addEventListener('click', function () {
@@ -497,7 +510,7 @@ body.dark .bd-overlay .bird-audio:hover { background: #38b874; }
         renderCheckin(seen);
         window.syncRecords.toggle(bird.name, seen).then(function (r) {
             renderCheckin(r.records.indexOf(bird.name) >= 0);
-            checkinHint.textContent = r.cloud ? '记录已云同步' : '已保存到本设备';
+            checkinHint.textContent = r.cloud ? '✓ 记录已云同步' : '已存本设备 · 登录后云同步';
         });
     });
 

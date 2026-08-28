@@ -1,9 +1,7 @@
-// 观鸟记录云同步：依赖 Cloudflare Access 登录(身份由 Access JWT 识别)
-// 未登录(Access 未启用/未登录)时自动退化为 localStorage 本地保存
+// 观鸟记录云同步：登录后走云端(/api/records, Cookie 会话),未登录退化为 localStorage 本地保存
 (function () {
     var CACHE_KEY = 'lingming_records_cache';
 
-    // 读取本地缓存
     function getLocal() {
         try {
             return JSON.parse(localStorage.getItem(CACHE_KEY) || '[]');
@@ -14,12 +12,13 @@
         localStorage.setItem(CACHE_KEY, JSON.stringify(records));
     }
 
-    // 拉取云端记录(未登录/接口不可用时用本地)
     window.syncRecords = {
+        // 拉取云端记录;未登录返回本地缓存
         fetch: function () {
-            return fetch('/api/records', { credentials: 'include' })
+            return fetch('/api/records', { credentials: 'same-origin' })
                 .then(function (res) {
-                    if (!res.ok) throw new Error('unauthorized');
+                    if (res.status === 401) throw new Error('need_login');
+                    if (!res.ok) throw new Error('server_error');
                     return res.json();
                 })
                 .then(function (data) {
@@ -30,9 +29,8 @@
                     return { records: getLocal(), cloud: false };
                 });
         },
-        // 打卡/取消:name 鸟名, seen true=看过
+        // 打卡/取消:name 鸟名, seen true=看过。本地立即生效,再异步云同步
         toggle: function (name, seen) {
-            // 先本地立即生效(体验优先)
             var records = getLocal();
             if (seen) {
                 if (records.indexOf(name) < 0) records.push(name);
@@ -41,15 +39,15 @@
             }
             setLocal(records);
 
-            // 再尝试云同步
             return fetch('/api/records', {
                 method: 'POST',
-                credentials: 'include',
+                credentials: 'same-origin',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name: name, seen: seen }),
             })
             .then(function (res) {
-                if (!res.ok) throw new Error('unauthorized');
+                if (res.status === 401) throw new Error('need_login');
+                if (!res.ok) throw new Error('server_error');
                 return res.json();
             })
             .then(function (data) {
