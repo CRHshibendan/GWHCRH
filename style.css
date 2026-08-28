@@ -574,14 +574,23 @@ body.dark .nav-theme a:hover .icon-sun {
     display: inline-flex;
     align-items: center;
     gap: 12px;
-    background: var(--card, #fff);
-    border: 1px solid var(--nav-border, rgba(0, 0, 0, 0.06));
+    /* 贴合 hero 背景的半透明表面:浅色=薄荷白,深色=墨绿玻璃 */
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(29, 122, 74, 0.18);
     border-radius: 999px;
     padding: 8px 20px 8px 10px;
     text-decoration: none;
     color: var(--text, #1d1d1f);
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 6px 24px rgba(18, 53, 40, 0.10);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, background 0.3s ease;
+}
+
+body.dark .daily-bird {
+    background: rgba(94, 227, 154, 0.10);
+    border-color: rgba(94, 227, 154, 0.22);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.30);
 }
 
 .daily-bird:hover {
