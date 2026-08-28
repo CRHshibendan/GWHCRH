@@ -491,7 +491,7 @@ body.dark .bd-overlay .bird-audio:hover { background: #38b874; }
     function refreshFromCloud() {
         window.syncRecords.fetch().then(function (r) {
             renderCheckin(r.records.indexOf(bird.name) >= 0);
-            checkinHint.textContent = r.cloud ? '✓ 记录已云同步' : '登录后可云同步';
+            checkinHint.textContent = r.cloud ? '✓ 记录已云同步' : '登录后可记录';
         });
     }
     refreshFromCloud();
@@ -502,16 +502,36 @@ body.dark .bd-overlay .bird-audio:hover { background: #38b874; }
     // 未登录时点提示文字唤起登录弹窗
     checkinHint.style.cursor = 'pointer';
     checkinHint.addEventListener('click', function () {
-        if (!checkinHint.textContent.indexOf('登录')) window.lmAuth.open();
+        if (!window.lmAuth.getUser()) window.lmAuth.open();
     });
 
+    // 待执行动作:登录成功后自动补上这次打卡
+    var pendingSeen = null;
+
     checkinBtn.addEventListener('click', function () {
+        // 未登录:弹登录窗,记住意图,登录成功后自动打卡
+        if (!window.lmAuth.getUser()) {
+            pendingSeen = true;
+            window.lmAuth.open();
+            return;
+        }
         var seen = !checkinBtn.classList.contains('checked');
         renderCheckin(seen);
         window.syncRecords.toggle(bird.name, seen).then(function (r) {
             renderCheckin(r.records.indexOf(bird.name) >= 0);
-            checkinHint.textContent = r.cloud ? '✓ 记录已云同步' : '已存本设备 · 登录后云同步';
+            checkinHint.textContent = r.cloud ? '✓ 记录已云同步' : '保存失败,请重试';
         });
+    });
+
+    // 登录成功 → 自动补打卡
+    window.addEventListener('lm-auth-change', function (e) {
+        if (e.detail && e.detail.user && pendingSeen) {
+            pendingSeen = null;
+            window.syncRecords.toggle(bird.name, true).then(function (r) {
+                renderCheckin(r.records.indexOf(bird.name) >= 0);
+                checkinHint.textContent = r.cloud ? '✓ 记录已云同步' : '保存失败,请重试';
+            });
+        }
     });
 
     // 标题

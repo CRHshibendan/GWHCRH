@@ -1,4 +1,4 @@
-// 观鸟记录云同步：登录后走云端(/api/records, Cookie 会话),未登录退化为 localStorage 本地保存
+// 观鸟记录云同步：仅登录用户可用(Cookie 会话),未登录不做本地记录
 (function () {
     var CACHE_KEY = 'lingming_records_cache';
 
@@ -13,7 +13,7 @@
     }
 
     window.syncRecords = {
-        // 拉取云端记录;未登录返回本地缓存
+        // 拉取云端记录;未登录返回空
         fetch: function () {
             return fetch('/api/records', { credentials: 'same-origin' })
                 .then(function (res) {
@@ -29,16 +29,8 @@
                     return { records: getLocal(), cloud: false };
                 });
         },
-        // 打卡/取消:name 鸟名, seen true=看过。本地立即生效,再异步云同步
+        // 打卡/取消:name 鸟名, seen true=看过。未登录时 reject,由调用方弹登录窗
         toggle: function (name, seen) {
-            var records = getLocal();
-            if (seen) {
-                if (records.indexOf(name) < 0) records.push(name);
-            } else {
-                records = records.filter(function (n) { return n !== name; });
-            }
-            setLocal(records);
-
             return fetch('/api/records', {
                 method: 'POST',
                 credentials: 'same-origin',
@@ -53,9 +45,6 @@
             .then(function (data) {
                 setLocal(data.records || []);
                 return { records: data.records || [], cloud: true };
-            })
-            .catch(function () {
-                return { records: records, cloud: false };
             });
         },
         has: function (name) {
