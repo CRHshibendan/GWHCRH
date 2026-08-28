@@ -549,6 +549,85 @@ body.dark .nav-theme a:hover .icon-sun {
     color: var(--text);
 }
 
+/* ===== 今日鸟种横幅 ===== */
+.daily-banner {
+    margin-top: 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    animation: dailyIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes dailyIn {
+    from { opacity: 0; transform: translateY(16px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.daily-greet {
+    font-size: 15px;
+    color: var(--text-2, #424245);
+    letter-spacing: 0.02em;
+}
+
+.daily-bird {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--card, #fff);
+    border: 1px solid var(--nav-border, rgba(0, 0, 0, 0.06));
+    border-radius: 999px;
+    padding: 8px 20px 8px 10px;
+    text-decoration: none;
+    color: var(--text, #1d1d1f);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+
+.daily-bird:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.14);
+}
+
+.daily-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--green, #1d7a4a);
+    border-radius: 999px;
+    padding: 3px 10px;
+    letter-spacing: 0.05em;
+}
+
+.daily-thumb {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    background: var(--fig-bg, #f5f5f7);
+}
+
+.daily-name {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.daily-go {
+    font-size: 13px;
+    color: var(--text-dim, #86868b);
+    transition: color 0.2s ease;
+}
+
+.daily-bird:hover .daily-go { color: var(--green, #1d7a4a); }
+
+@media (max-width: 480px) {
+    .daily-bird { gap: 8px; padding: 6px 14px 6px 8px; }
+    .daily-thumb { width: 32px; height: 32px; }
+    .daily-name { font-size: 14.5px; }
+    .daily-go { display: none; }
+}
+
 .hero-figure {
     margin-top: 36px;
     display: flex;

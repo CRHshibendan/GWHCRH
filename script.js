@@ -635,3 +635,38 @@ figWrap.addEventListener('click', function (e) {
 // 初始展示反嘴鹬(与原设计一致,用第 1 张精选主图),之后每 5 秒随机轮换(悬停时暂停)
 window.__firstShow = true;
 showBird(0);
+
+// ===== 今日鸟种 + 时段问候 =====
+// 同一天全站展示同一只鸟(按日期哈希,零点换鸟),问候语随时间变化
+(function () {
+    var banner = document.getElementById('dailyBanner');
+    if (!banner || typeof BIRDS === 'undefined' || !BIRDS.length) return;
+
+    // 时段问候
+    var h = new Date().getHours();
+    var greet;
+    if (h < 5) greet = '夜深了,东滩的鸟儿也在安睡 🌙';
+    else if (h < 8) greet = '清晨好!正是东滩观鸟的黄金时段 🌅';
+    else if (h < 11) greet = '上午好!湿地的鸟儿们正活跃 ☀️';
+    else if (h < 14) greet = '中午好,鸟儿们也在偷闲小憩 🍃';
+    else if (h < 18) greet = '下午好,潮间带上觅食正忙 🌾';
+    else if (h < 21) greet = '傍晚好,归鸟正掠过芦苇梢 🌆';
+    else greet = '晚上好,听一段鸟鸣放松下吧 ✨';
+
+    // 今日鸟种:日期字符串哈希 → 稳定映射到某只鸟(全天不变)
+    var today = new Date();
+    var dateStr = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    var hash = 0;
+    for (var i = 0; i < dateStr.length; i++) {
+        hash = (hash * 31 + dateStr.charCodeAt(i)) >>> 0;
+    }
+    var bird = BIRDS[hash % BIRDS.length];
+
+    document.getElementById('dailyGreet').textContent = greet;
+    var thumb = document.getElementById('dailyThumb');
+    thumb.src = bird.images[0];
+    thumb.alt = bird.name;
+    document.getElementById('dailyName').textContent = bird.name;
+    document.getElementById('dailyBird').href = 'bird.html?name=' + encodeURIComponent(bird.name);
+    banner.style.display = '';
+})();
