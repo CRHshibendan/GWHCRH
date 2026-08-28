@@ -373,6 +373,90 @@ body.dark .bd-overlay .bird-audio:hover { background: #38b874; }
     color: var(--text-dim);
 }
 
+/* ===== Face ID 式打卡动画 =====
+   点击 → 按钮缩成圆点(图标旋入) → 扫描光上下扫 → 打勾弹跳放大 → 恢复胶囊 */
+@keyframes checkinShrink {
+    0%   { padding: 12px 30px; gap: 8px; border-radius: 999px; }
+    40%  { padding: 12px; gap: 0; border-radius: 999px; }
+    100% { padding: 12px; gap: 0; border-radius: 999px; }
+}
+@keyframes checkinTextOut {
+    from { opacity: 1; max-width: 120px; }
+    to   { opacity: 0; max-width: 0; transform: scale(0.6); }
+}
+@keyframes iconSpin {
+    0%   { transform: rotate(0deg) scale(1); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+@keyframes scanSweep {
+    0%   { top: 8%; opacity: 0; }
+    15%  { opacity: 1; }
+    85%  { opacity: 1; }
+    100% { top: 88%; opacity: 0; }
+}
+@keyframes checkinPop {
+    0%   { transform: scale(0.3); }
+    50%  { transform: scale(1.35); }
+    70%  { transform: scale(0.92); }
+    100% { transform: scale(1); }
+}
+@keyframes successGlow {
+    0%   { box-shadow: 0 0 0 0 rgba(29, 122, 74, 0.55); }
+    100% { box-shadow: 0 0 0 22px rgba(29, 122, 74, 0); }
+}
+@keyframes checkinRestore {
+    from { padding: 12px; gap: 0; }
+    to   { padding: 12px 30px; gap: 8px; }
+}
+@keyframes textIn {
+    from { opacity: 0; max-width: 0; transform: scale(0.6); }
+    to   { opacity: 1; max-width: 120px; transform: scale(1); }
+}
+
+/* 动画中:缩成圆点 */
+.bd-checkin-btn.animating {
+    padding: 12px;
+    gap: 0;
+    animation: successGlow 0.7s ease-out 1.15s both;
+    overflow: hidden;
+    position: relative;
+}
+.bd-checkin-btn.animating #checkinText {
+    display: none;
+}
+.bd-checkin-btn.animating #checkinIcon {
+    animation: iconSpin 0.9s cubic-bezier(0.45, 0, 0.25, 1) both;
+    display: inline-block;
+}
+
+/* 扫描光(圆点内一道亮线扫过,像 Face ID 扫脸) */
+.bd-checkin-btn .scan-line {
+    position: absolute;
+    left: 18%;
+    right: 18%;
+    height: 2.5px;
+    top: 8%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, transparent, #aef3cd, transparent);
+    filter: drop-shadow(0 0 4px #5ee39a);
+    opacity: 0;
+    pointer-events: none;
+}
+.bd-checkin-btn.animating .scan-line {
+    animation: scanSweep 0.85s ease-in-out 0.15s 2;
+}
+
+/* 完成态:打勾弹跳 + 文字回归 */
+.bd-checkin-btn.done-pop #checkinIcon {
+    animation: checkinPop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.bd-checkin-btn.restore {
+    animation: checkinRestore 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.bd-checkin-btn.restore #checkinText {
+    animation: textIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
 </style>
 </head>
 <body>
@@ -433,7 +517,7 @@ body.dark .bd-overlay .bird-audio:hover { background: #38b874; }
             '</figure>' +
             '<p class="bd-desc">' + bird.desc + '</p>' +
             '<div class="bd-checkin">' +
-                '<button class="bd-checkin-btn" id="checkinBtn"><span id="checkinIcon">✓</span> <span id="checkinText">我看过它</span></button>' +
+                '<button class="bd-checkin-btn" id="checkinBtn"><span class="scan-line"></span><span id="checkinIcon">✓</span> <span id="checkinText">我看过它</span></button>' +
                 '<span class="bd-checkin-hint" id="checkinHint"></span>' +
             '</div>' +
         '</section>' +
@@ -507,6 +591,33 @@ body.dark .bd-overlay .bird-audio:hover { background: #38b874; }
 
     // 待执行动作:登录成功后自动补上这次打卡
     var pendingSeen = null;
+    var animating = false;
+
+    // Face ID 式动画:缩圆点 → 扫描光×2 → 打勾弹跳 → 恢复胶囊(约1.9s)
+    function playCheckinAnimation() {
+        if (animating) return;
+        animating = true;
+        // 动画期间保持视觉状态,结束后按真实数据渲染
+        renderCheckin(true);
+        checkinBtn.classList.add('animating');
+        // 1.9s 后:打勾弹跳 + 恢复
+        setTimeout(function () {
+            checkinBtn.classList.remove('animating');
+            checkinBtn.classList.add('done-pop', 'restore');
+            // 恢复动画结束后清理
+            setTimeout(function () {
+                checkinBtn.classList.remove('done-pop', 'restore');
+                animating = false;
+            }, 600);
+        }, 1350);
+    }
+
+    function doToggle(seen) {
+        window.syncRecords.toggle(bird.name, seen).then(function (r) {
+            renderCheckin(r.records.indexOf(bird.name) >= 0);
+            checkinHint.textContent = r.cloud ? '✓ 记录已云同步' : '保存失败,请重试';
+        });
+    }
 
     checkinBtn.addEventListener('click', function () {
         // 未登录:弹登录窗,记住意图,登录成功后自动打卡
@@ -515,22 +626,21 @@ body.dark .bd-overlay .bird-audio:hover { background: #38b874; }
             window.lmAuth.open();
             return;
         }
+        if (animating) return;
         var seen = !checkinBtn.classList.contains('checked');
-        renderCheckin(seen);
-        window.syncRecords.toggle(bird.name, seen).then(function (r) {
-            renderCheckin(r.records.indexOf(bird.name) >= 0);
-            checkinHint.textContent = r.cloud ? '✓ 记录已云同步' : '保存失败,请重试';
-        });
+        if (seen) {
+            // 打卡:走 Face ID 动画,云端同步并行
+            playCheckinAnimation();
+        }
+        doToggle(seen);
     });
 
-    // 登录成功 → 自动补打卡
+    // 登录成功 → 自动补打卡(带动画)
     window.addEventListener('lm-auth-change', function (e) {
         if (e.detail && e.detail.user && pendingSeen) {
             pendingSeen = null;
-            window.syncRecords.toggle(bird.name, true).then(function (r) {
-                renderCheckin(r.records.indexOf(bird.name) >= 0);
-                checkinHint.textContent = r.cloud ? '✓ 记录已云同步' : '保存失败,请重试';
-            });
+            playCheckinAnimation();
+            doToggle(true);
         }
     });
 
