@@ -9,8 +9,9 @@
 	"main": "records-api.js",
 	"assets": {
 		"directory": ".",
+		"binding": "ASSETS",
 		"not_found_handling": "404-page",
-		"run_worker_first": ["/api/*"]
+		"run_worker_first": ["/api/*", "/bird", "/bird.html"]
 	},
 	"routes": [
 		{
