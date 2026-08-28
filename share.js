@@ -98,9 +98,15 @@
         btn.innerHTML = ICON_SHARE + ICON_TICK;
         btn.addEventListener('click', function () { doShare(btn); });
         if (host.parentNode) {
-            var li = document.createElement('li');
-            li.appendChild(btn);
-            host.parentNode.insertBefore(li, host);
+            if (host.closest('li')) {
+                // 首页等 ul/li 导航:包一层 li 保持结构一致
+                var li = document.createElement('li');
+                li.appendChild(btn);
+                host.parentNode.insertBefore(li, host);
+            } else {
+                // 鸟种页等纯 a 导航:直接插入,避免裸 li 渲染出列表圆点
+                host.parentNode.insertBefore(btn, host);
+            }
         }
     }
 

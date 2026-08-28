@@ -131,9 +131,15 @@
             }
         });
         if (anchor && anchor.parentNode) {
-            var li = document.createElement('li');
-            li.appendChild(btn);
-            anchor.parentNode.insertBefore(li, anchor);
+            if (anchor.closest('li')) {
+                // 首页等 ul/li 导航:包一层 li 保持结构一致
+                var li = document.createElement('li');
+                li.appendChild(btn);
+                anchor.parentNode.insertBefore(li, anchor);
+            } else {
+                // 鸟种页等纯 a 导航:直接插入,避免裸 li 渲染出列表圆点
+                anchor.parentNode.insertBefore(btn, anchor);
+            }
         } else {
             document.body.insertBefore(btn, document.body.firstChild);
         }
