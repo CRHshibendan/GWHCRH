@@ -1,11 +1,31 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "gwhcrh",
-  "compatibility_date": "2026-08-26",
-  "observability": {
-    "enabled": true
-  },
-  "assets": {
-    "directory": "."
-  }
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "gwhcrh",
+	"compatibility_date": "2026-08-26",
+	"workers_dev": false,
+	"observability": {
+		"enabled": true
+	},
+	"main": "records-api.js",
+	"assets": {
+		"directory": ".",
+		"not_found_handling": "404-page",
+		"run_worker_first": ["/api/*"]
+	},
+	"routes": [
+		{
+			"pattern": "lingmingguan.cn",
+			"custom_domain": true
+		},
+		{
+			"pattern": "www.lingmingguan.cn",
+			"custom_domain": true
+		}
+	],
+	"kv_namespaces": [
+		{
+			"binding": "LINGMING_KV",
+			"id": "72a6bdfe161245049e30804287b5b59a"
+		}
+	]
 }

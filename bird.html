@@ -332,6 +332,47 @@ body.dark .bd-theme:hover .icon-sun {
 /* 暗色下播放按钮提亮 */
 body.dark .bd-overlay .bird-audio { background: #2e9e64; }
 body.dark .bd-overlay .bird-audio:hover { background: #38b874; }
+
+/* ===== 观鸟打卡按钮 ===== */
+.bd-checkin {
+    margin: 36px auto 0;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.bd-checkin-btn {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    background: #1d7a4a;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 30px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.bd-checkin-btn:hover { background: #16603b; transform: scale(1.05); }
+.bd-checkin-btn:active { transform: scale(0.97); }
+
+.bd-checkin-btn.checked {
+    background: var(--chip-bg);
+    color: var(--green);
+    box-shadow: inset 0 0 0 1.5px var(--green);
+}
+
+.bd-checkin-hint {
+    font-size: 12.5px;
+    color: var(--text-dim);
+}
+
 </style>
 </head>
 <body>
@@ -353,6 +394,7 @@ body.dark .bd-overlay .bird-audio:hover { background: #38b874; }
 <script src="theme.js"></script>
 <script>initThemeToggle('themeToggle');</script>
 <script src="bird-data.js"></script>
+<script src="records-sync.js"></script>
 <script>
 (function () {
     var app = document.getElementById('app');
@@ -389,6 +431,10 @@ body.dark .bd-overlay .bird-audio:hover { background: #38b874; }
                 '</div>' +
             '</figure>' +
             '<p class="bd-desc">' + bird.desc + '</p>' +
+            '<div class="bd-checkin">' +
+                '<button class="bd-checkin-btn" id="checkinBtn"><span id="checkinIcon">✓</span> <span id="checkinText">我看过它</span></button>' +
+                '<span class="bd-checkin-hint" id="checkinHint"></span>' +
+            '</div>' +
         '</section>' +
         '<section class="bd-related">' +
             '<h2>您可能感兴趣</h2>' +
@@ -422,6 +468,36 @@ body.dark .bd-overlay .bird-audio:hover { background: #38b874; }
     document.querySelectorAll('.bd-card').forEach(function (card) {
         card.addEventListener('click', function () {
             location.href = 'bird.html?name=' + encodeURIComponent(card.getAttribute('data-name'));
+        });
+    });
+
+    // ===== 观鸟打卡(云同步) =====
+    var checkinBtn = document.getElementById('checkinBtn');
+    var checkinText = document.getElementById('checkinText');
+    var checkinIcon = document.getElementById('checkinIcon');
+    var checkinHint = document.getElementById('checkinHint');
+
+    function renderCheckin(seen) {
+        checkinBtn.classList.toggle('checked', seen);
+        checkinText.textContent = seen ? '已看过' : '我看过它';
+        checkinIcon.textContent = seen ? '✓' : '👁';
+    }
+
+    // 初始状态
+    renderCheckin(window.syncRecords.has(bird.name));
+
+    // 云端记录到达后刷新(覆盖本地缓存初始值)
+    window.syncRecords.fetch().then(function (r) {
+        renderCheckin(r.records.indexOf(bird.name) >= 0);
+        checkinHint.textContent = r.cloud ? '记录已云同步' : '';
+    });
+
+    checkinBtn.addEventListener('click', function () {
+        var seen = !checkinBtn.classList.contains('checked');
+        renderCheckin(seen);
+        window.syncRecords.toggle(bird.name, seen).then(function (r) {
+            renderCheckin(r.records.indexOf(bird.name) >= 0);
+            checkinHint.textContent = r.cloud ? '记录已云同步' : '已保存到本设备';
         });
     });
 
